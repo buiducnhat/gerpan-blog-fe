@@ -14,6 +14,7 @@ export const TitleHeading = ({ title, ...props }: ITitleHeadingProps) => {
       fontSize="xl"
       letterSpacing="widest"
       textTransform="uppercase"
+      w="fit-content"
       mb={3}
       boxShadow={`inset 0 -${theme.sizes['2']} 0 ${
         theme.colors.primary[colorMode === 'light' ? 300 : 600]

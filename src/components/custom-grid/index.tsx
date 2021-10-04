@@ -39,7 +39,7 @@ export const CustomColumn = ({ base, sm, md, lg, xl, children, ...rest }: ICusto
   );
 };
 
-export const CustomGrid = (props: any) => {
+export const CustomRow = (props: any) => {
   const { children, ...rest } = props;
 
   return (
