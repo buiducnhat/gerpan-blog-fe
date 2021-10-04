@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
+import "@fontsource/noto-sans-display"
 
 import theme from '@src/theme';
 

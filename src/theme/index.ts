@@ -15,6 +15,10 @@ const theme = extendTheme({
       }
     })
   },
+  fonts:{
+    heading: 'Noto Sans Display',
+    body: 'Noto Sans Display'
+  },
   colors: {
     primary: baseTheme.colors.purple,
     secondary: baseTheme.colors.teal

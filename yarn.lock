@@ -767,6 +767,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fontsource/noto-sans-display@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/noto-sans-display/-/noto-sans-display-4.5.0.tgz#4836158937ed7a880cb3e532a13fbbc6c70328be"
+  integrity sha512-Wbx8j/shiV0dYWFQ5X/1pCzSWjQxvgijI9C1EzKs3O8vkDOaDJcSRBXRqy3EZVc3M+K78nEcVszzE/0X5KU7nw==
+
 "@hapi/accept@5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@hapi/accept/-/accept-5.0.2.tgz#ab7043b037e68b722f93f376afb05e85c0699523"
