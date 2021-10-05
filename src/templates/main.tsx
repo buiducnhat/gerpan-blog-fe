@@ -1,8 +1,8 @@
 import { ReactNode, useState } from 'react';
 
-import { AdminHeader } from '@src/components/header/header-admin';
+import { MainHeader } from '@src/components/header/header-main';
 import { Footer } from '@src/components/footer';
-import { Box, Container } from '@chakra-ui/react';
+import { Container } from '@chakra-ui/react';
 
 interface IMainProps {
   meta: ReactNode;
@@ -17,7 +17,7 @@ const Main = (props: IMainProps) => {
   return (
     <>
       {meta}
-      <AdminHeader setOpenDrawer={setOpenDrawer} />
+      <MainHeader setOpenDrawer={setOpenDrawer} />
       <Container maxW="container.xl" py={5}>
         {children}
       </Container>

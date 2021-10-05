@@ -16,9 +16,10 @@ export default function Home() {
       <CustomRow>
         <CustomColumn base={12} md={8}>
           <TitleHeading title={'Articles'} />
+          <Box mb='5'/>
 
           <ArticleTagsRandom tags={__articleTagsMock} />
-          <Box mb='3'/>
+          <Box mb='5'/>
 
           {__articlesMock?.length > 0 &&
             __articlesMock.map((__article) => <Article key={__article.id} article={__article} />)}
