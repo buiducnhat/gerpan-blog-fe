@@ -50,6 +50,7 @@ export const ArticleTagsRandom = ({ tags }: IArticleTagsRandomProps) => {
             variant="solid"
             colorScheme={getTagColor(tag.id)}
             cursor="pointer"
+            sx={{ _hover: { shadow: 'xl' } }}
           >
             {tag.title}
           </Tag>
