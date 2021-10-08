@@ -17,7 +17,13 @@ export const ArticleCategoryList = ({ categories }: IArticleCategoryList) => {
           {categories.map((category) => (
             <ListItem key={category.id}>
               <Link href="#" passHref>
-                <Box as="a" fontWeight="bold" letterSpacing="tight" textTransform="uppercase">
+                <Box
+                  as="a"
+                  fontWeight="bold"
+                  letterSpacing="tight"
+                  textTransform="uppercase"
+                  _hover={{ color: 'primary.500' }}
+                >
                   {category.title}
                 </Box>
               </Link>

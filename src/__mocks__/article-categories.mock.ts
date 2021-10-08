@@ -1,4 +1,5 @@
 import { IArticleCategoryBasic } from '@src/models/article-category.interface';
+import { CommonUtil } from '@src/utils/common.util';
 
 export const __articleCategoryMock: IArticleCategoryBasic = {
   id: 1,
@@ -6,6 +7,13 @@ export const __articleCategoryMock: IArticleCategoryBasic = {
   title: 'Category'
 };
 
-export const __articleCategoriesMock = new Array<IArticleCategoryBasic>(10).fill(
-  __articleCategoryMock
-);
+const __articleCategoriesMock: IArticleCategoryBasic[] = [];
+for (let i = 0; i < 5; i++) {
+  __articleCategoriesMock.push({
+    id: i + 1,
+    title: CommonUtil.getRandomString(),
+    level: 1
+  });
+}
+
+export { __articleCategoriesMock };
