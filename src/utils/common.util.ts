@@ -26,4 +26,8 @@ export class CommonUtil {
   static getRandomIntNumber(min: number, max: number) {
     return Math.floor(min + Math.random() * (max - min));
   }
+
+  static getIdFromSlug(slug: string) {
+    return slug.split('-').slice(-1)[0];
+  }
 }
