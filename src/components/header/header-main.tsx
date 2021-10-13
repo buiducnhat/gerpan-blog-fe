@@ -27,7 +27,7 @@ export const MainHeader = ({ setOpenDrawer }: IAdminHeaderProps) => {
   const { colorMode } = useColorMode();
 
   return (
-    <Box bg={colorMode === 'light' ? 'gray.300' : 'gray.900'}>
+    <Box w="100%" pos="sticky" top="0" zIndex="banner" bg={colorMode === 'light' ? 'gray.300' : 'gray.900'}>
       <Container maxW="container.xl">
         <Flex as="nav" py="1" px={{ base: '0', md: '3' }} w="100%" align="center">
           <Logo color="primary.800" />
