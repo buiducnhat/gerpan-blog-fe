@@ -23,7 +23,9 @@ export default function ArticlesPage() {
           <Box mb="5" />
 
           {__articlesMock?.length > 0 &&
-            __articlesMock.map((__article) => <ArticleCard key={__article.id} article={__article} />)}
+            __articlesMock.map((__article) => (
+              <ArticleCard key={Math.random()} article={__article} />
+            ))}
         </CustomColumn>
         <CustomColumn base={12} md={4}>
           <MainRightSideBar user={__userMock} />

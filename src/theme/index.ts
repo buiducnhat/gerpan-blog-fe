@@ -15,7 +15,7 @@ const theme = extendTheme({
       }
     })
   },
-  fonts:{
+  fonts: {
     heading: 'Noto Sans Display',
     body: 'Noto Sans Display'
   },

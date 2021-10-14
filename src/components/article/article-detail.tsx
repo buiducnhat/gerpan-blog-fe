@@ -11,6 +11,12 @@ import {
   Divider,
   useColorMode
 } from '@chakra-ui/react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import remarkSlug from 'remark-slug';
+import rehypeRaw from 'rehype-raw';
+import { PrismAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { FaCalendarAlt as CalendarIcon, FaBookmark as CategoryIcon } from 'react-icons/fa';
 import { format as formatDate } from 'date-fns';
 
@@ -21,7 +27,7 @@ export interface IArticleProps {
   article: IArticleBasic;
 }
 
-export const ArticleDetail = (props: IArticleProps) => {
+export default function ArticleDetail(props: IArticleProps) {
   const { colorMode } = useColorMode();
 
   const { article } = props;
@@ -72,15 +78,34 @@ export const ArticleDetail = (props: IArticleProps) => {
 
         <Divider mb="5" />
 
-        <Box
-          dangerouslySetInnerHTML={{ __html: article.content }}
-          sx={{
-            h2: {
-              fontSize: '16px'
-            }
-          }}
-        />
+        <Box sx={{ all: 'initial', color: 'inherit', fontFamily: 'inherit' }}>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm, remarkSlug]}
+            rehypePlugins={[rehypeRaw]}
+            components={{
+              code({ node, inline, className, children, ...props }) {
+                const match = /language-(\w+)/.exec(className || '');
+                return !inline && match ? (
+                  <SyntaxHighlighter
+                    style={vscDarkPlus}
+                    language={match[1]}
+                    PreTag="div"
+                    showLineNumbers={true}
+                  >
+                    {String(children).replace(/\n$/, '')}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                );
+              }
+            }}
+          >
+            {article.content}
+          </ReactMarkdown>
+        </Box>
       </Box>
     </Box>
   );
-};
+}
