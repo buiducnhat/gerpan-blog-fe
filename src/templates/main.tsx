@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react';
 
-import { MainHeader } from '@src/components/header/header-main';
+import MainHeader from '@src/components/header/header-main';
 import { Footer } from '@src/components/footer';
 import { Container } from '@chakra-ui/react';
 

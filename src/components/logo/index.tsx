@@ -1,6 +1,6 @@
 import { Box, Heading } from '@chakra-ui/react';
 
-export const Logo = ({ ...props }) => {
+export default function Logo({ ...props }) {
   return (
     <Box {...props}>
       <Heading size="md">Gerpan</Heading>

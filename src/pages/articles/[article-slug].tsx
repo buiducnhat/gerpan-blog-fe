@@ -9,8 +9,8 @@ import { __articleMock } from '@src/__mocks__/articles.mock';
 import { __articleTagsMock } from '@src/__mocks__/article-tags.mock';
 import { CommonUtil } from '@src/utils/common.util';
 import ArticleDetail from '@src/components/article/article-detail';
-import { ArticleTableContent } from '@src/components/article/article-table-content';
-import { TitleHeading } from '@src/components/title-heading';
+import ArticleTableContent from '@src/components/article/article-table-content';
+import TitleHeading from '@src/components/title-heading';
 
 export default function ArticlePage() {
   const router = useRouter();

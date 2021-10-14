@@ -4,7 +4,7 @@ export interface ITitleHeadingProps {
   title: string;
 }
 
-export const TitleHeading = ({ title, ...props }: ITitleHeadingProps) => {
+export default function TitleHeading({ title, ...props }: ITitleHeadingProps) {
   const theme = useTheme();
   const { colorMode } = useColorMode();
 
@@ -24,4 +24,4 @@ export const TitleHeading = ({ title, ...props }: ITitleHeadingProps) => {
       {title}
     </Heading>
   );
-};
+}

@@ -2,7 +2,7 @@ import { ReactNode, useState } from 'react';
 
 import { AdminHeader } from '@src/components/header/header-admin';
 import { Footer } from '@src/components/footer';
-import { AdminSidebar } from '@src/components/sidebar/admin-sidebar';
+import AdminSidebar from '@src/components/sidebar/admin-sidebar';
 import { Box } from '@chakra-ui/react';
 
 interface IMainProps {

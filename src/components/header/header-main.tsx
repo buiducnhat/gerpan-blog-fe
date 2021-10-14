@@ -1,4 +1,4 @@
-import { Logo } from '@src/components/logo';
+import Logo from '@src/components/logo';
 import {
   Flex,
   Container,
@@ -16,18 +16,24 @@ import {
 } from '@chakra-ui/react';
 import { MdMenu as MenuIcon } from 'react-icons/md';
 import { FaBell as NotificationIcon } from 'react-icons/fa';
-import { ToggleThemeButton } from '@src/components/toggle-theme-button';
+import ToggleThemeButton from '@src/components/toggle-theme-button';
 
 interface IAdminHeaderProps {
   setOpenDrawer: any;
 }
 
-export const MainHeader = ({ setOpenDrawer }: IAdminHeaderProps) => {
+export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { colorMode } = useColorMode();
 
   return (
-    <Box w="100%" pos="sticky" top="0" zIndex="banner" bg={colorMode === 'light' ? 'gray.300' : 'gray.900'}>
+    <Box
+      w="100%"
+      pos="sticky"
+      top="0"
+      zIndex="banner"
+      bg={colorMode === 'light' ? 'gray.300' : 'gray.900'}
+    >
       <Container maxW="container.xl">
         <Flex as="nav" py="1" px={{ base: '0', md: '3' }} w="100%" align="center">
           <Logo color="primary.800" />
@@ -75,4 +81,4 @@ export const MainHeader = ({ setOpenDrawer }: IAdminHeaderProps) => {
       </Container>
     </Box>
   );
-};
+}

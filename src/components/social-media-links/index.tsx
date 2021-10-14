@@ -1,9 +1,8 @@
-import { ButtonGroup, ButtonGroupProps, IconButton, useColorMode } from '@chakra-ui/react';
-import { CommonUtil } from '@src/utils/common.util';
 import * as React from 'react';
+import { ButtonGroup, ButtonGroupProps, IconButton, useColorMode } from '@chakra-ui/react';
 import { FaGithub, FaFacebook } from 'react-icons/fa';
 
-export const SocialMediaLinks = (props: ButtonGroupProps) => {
+export default function SocialMediaLinks(props: ButtonGroupProps) {
   const { colorMode } = useColorMode();
 
   return (
@@ -28,4 +27,4 @@ export const SocialMediaLinks = (props: ButtonGroupProps) => {
       />
     </ButtonGroup>
   );
-};
+}

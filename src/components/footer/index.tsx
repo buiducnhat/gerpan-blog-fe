@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Box, Container, Stack, useColorMode } from '@chakra-ui/react';
 
-import { Copyright } from '@src/components/copyright';
-import { Logo } from '@src/components/logo';
-import { SocialMediaLinks } from '@src/components/social-media-links';
+import Copyright from '@src/components/copyright';
+import Logo from '@src/components/logo';
+import SocialMediaLinks from '@src/components/social-media-links';
 
 export const Footer = () => {
   const { colorMode } = useColorMode();

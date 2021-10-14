@@ -8,7 +8,7 @@ export interface IArticleTagsRandomProps {
   tags: IArticleTagBasic[];
 }
 
-export const ArticleTagsRandom = ({ tags }: IArticleTagsRandomProps) => {
+export default function ArticleTagsRandom({ tags }: IArticleTagsRandomProps) {
   const colorSchemes: ThemeTypings['colorSchemes'][] = [
     'blue',
     'cyan',
@@ -58,4 +58,4 @@ export const ArticleTagsRandom = ({ tags }: IArticleTagsRandomProps) => {
       ))}
     </Flex>
   );
-};
+}

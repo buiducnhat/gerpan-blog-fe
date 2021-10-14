@@ -24,7 +24,7 @@ export interface IArticleProps {
   article: IArticleBasic;
 }
 
-export const ArticleCard = (props: IArticleProps) => {
+export default function ArticleCard(props: IArticleProps) {
   const { colorMode } = useColorMode();
 
   const { article } = props;
@@ -87,4 +87,4 @@ export const ArticleCard = (props: IArticleProps) => {
       </Box>
     </Box>
   );
-};
+}

@@ -64,7 +64,7 @@ const useHeadingsData = () => {
   return { nestedHeadings };
 };
 
-export const ArticleTableContent = () => {
+export default function ArticleTableContent() {
   const { colorMode } = useColorMode();
 
   const { nestedHeadings } = useHeadingsData();
@@ -78,4 +78,4 @@ export const ArticleTableContent = () => {
       ))}
     </Box>
   );
-};
+}

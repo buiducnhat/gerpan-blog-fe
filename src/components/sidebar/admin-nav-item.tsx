@@ -44,7 +44,7 @@ const StyledListItem = ({ onClick, children, ...rest }: IStyledListItemProps) =>
   );
 };
 
-export const NavItem = ({ title, href, icon: Icon, nested }: INavItemProps) => {
+export default function NavItem({ title, href, icon: Icon, nested }: INavItemProps) {
   const [isOpenNested, setIsOpenNested] = useState(false);
 
   return (
@@ -76,4 +76,4 @@ export const NavItem = ({ title, href, icon: Icon, nested }: INavItemProps) => {
       )}
     </>
   );
-};
+}

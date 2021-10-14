@@ -14,8 +14,8 @@ import {
 } from '@chakra-ui/react';
 import { MdMenu as MenuIcon, MdNotificationsNone as NotificationIcon } from 'react-icons/md';
 
-import { ToggleThemeButton } from '@src/components/toggle-theme-button';
-import { Logo } from '@src/components/logo';
+import ToggleThemeButton from '@src/components/toggle-theme-button';
+import Logo from '@src/components/logo';
 
 interface IAdminHeaderProps {
   setOpenDrawer: any;

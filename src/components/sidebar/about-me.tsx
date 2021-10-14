@@ -1,13 +1,13 @@
-import { Box, Avatar, Heading, VStack } from '@chakra-ui/react';
+import { Box, Avatar, VStack } from '@chakra-ui/react';
 import { IUserBasic } from '@src/models/user.interface';
 import { CommonUtil } from '@src/utils/common.util';
-import { TitleHeading } from '@src/components/title-heading';
+import TitleHeading from '@src/components/title-heading';
 
 export interface IAboutMeProps {
   user: IUserBasic;
 }
 
-export const AboutMe = ({ user }: IAboutMeProps) => {
+export default function AboutMe({ user }: IAboutMeProps) {
   return (
     <VStack>
       <TitleHeading title={'About me'} />
@@ -23,4 +23,4 @@ export const AboutMe = ({ user }: IAboutMeProps) => {
       </Box>
     </VStack>
   );
-};
+}

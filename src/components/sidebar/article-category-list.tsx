@@ -1,13 +1,14 @@
-import { Box, VStack, List, ListItem } from '@chakra-ui/react';
-import { IArticleCategoryBasic } from '@src/models/article-category.interface';
 import Link from 'next/link';
-import { TitleHeading } from '@src/components/title-heading';
+import { Box, VStack, List, ListItem } from '@chakra-ui/react';
+
+import { IArticleCategoryBasic } from '@src/models/article-category.interface';
+import TitleHeading from '@src/components/title-heading';
 
 export interface IArticleCategoryList {
   categories: IArticleCategoryBasic[];
 }
 
-export const ArticleCategoryList = ({ categories }: IArticleCategoryList) => {
+export default function ArticleCategoryList({ categories }: IArticleCategoryList) {
   return (
     <Box>
       <VStack>
@@ -33,4 +34,4 @@ export const ArticleCategoryList = ({ categories }: IArticleCategoryList) => {
       </VStack>
     </Box>
   );
-};
+}

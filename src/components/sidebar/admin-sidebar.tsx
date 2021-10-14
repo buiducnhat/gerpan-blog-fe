@@ -21,7 +21,7 @@ import {
   FiTag as TagIcon,
   FiEdit as ArticleIcon
 } from 'react-icons/fi';
-import { NavItem } from './admin-nav-item';
+import NavItem from './admin-nav-item';
 
 const items = [
   {
@@ -63,7 +63,7 @@ interface IAdminSidebarProps {
   setOpenDrawer: any;
 }
 
-export const AdminSidebar = ({ openDrawer, setOpenDrawer }: IAdminSidebarProps) => {
+export default function AdminSidebar ({ openDrawer, setOpenDrawer }: IAdminSidebarProps) {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { colorMode } = useColorMode();
 
