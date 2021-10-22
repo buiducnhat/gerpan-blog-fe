@@ -38,6 +38,7 @@ const getNestedHeadings = (headingElements: Element[]) => {
   headingElements.forEach((heading, index) => {
     let { innerHTML: title, id } = heading;
     id = CommonUtil.makeSlug(title, index.toString());
+    console.log(id);
 
     if (heading.nodeName === 'H2') {
       nestedHeadings.push({ id, title, children: [] });
@@ -57,6 +58,7 @@ const useHeadingsData = () => {
 
   useEffect(() => {
     const headingElements = Array.from(document.querySelectorAll('h2, h3'));
+    console.log(headingElements)
 
     const newNestedHeadings = getNestedHeadings(headingElements);
     setNestedHeadings(newNestedHeadings);

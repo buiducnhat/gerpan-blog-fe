@@ -83,18 +83,15 @@ export default function ArticleDetail(props: IArticleProps) {
 
         <Box
           sx={{
-            // all: 'initial',
-            color: 'inherit',
-            fontFamily: 'inherit',
             h2: {
               margin: '1.5em 0 .2em',
               fontWeight: 900,
-              fontSize: '1.75em'
+              fontSize: '2xl'
             },
             h3: {
-              fontWeight: 700,
-              fontSize: '1.45em',
-              margin: '.75em 0 .5em'
+              fontWeight: 600,
+              fontSize: 'xl',
+              margin: '1em 0 .5em'
             },
             p: {
               fontsize: '1rem',
@@ -119,7 +116,7 @@ export default function ArticleDetail(props: IArticleProps) {
           }}
         >
           <ReactMarkdown
-            remarkPlugins={[remarkGfm, remarkSlug]}
+            remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
             components={{
               code({ node, inline, className, children, ...props }) {
