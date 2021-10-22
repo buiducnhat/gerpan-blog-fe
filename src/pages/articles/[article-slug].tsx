@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { Box } from '@chakra-ui/react';
 
 import { Meta } from '@src/layouts/meta';
 import { Main as MainTemplate } from '@src/templates/main';
@@ -30,9 +31,10 @@ export default function ArticlePage() {
           {__articleMock && <ArticleDetail article={__articleMock} />}
         </CustomColumn>
 
-        <CustomColumn base={12} md={4}>
-          <TitleHeading title={'Table of contents'} />
-          <ArticleTableContent />
+        <CustomColumn base={12} md={4} position="relative">
+          <Box position="sticky" top="16">
+            <ArticleTableContent />
+          </Box>
         </CustomColumn>
       </CustomRow>
     </MainTemplate>

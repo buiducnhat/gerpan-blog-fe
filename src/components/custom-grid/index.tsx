@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, BoxProps } from '@chakra-ui/react';
 
-export interface ICustomColumnProps {
+export interface ICustomColumnProps extends BoxProps {
   base?: number;
   sm?: number;
   md?: number;

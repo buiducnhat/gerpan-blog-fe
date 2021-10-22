@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { FaCalendarAlt as CalendarIcon, FaBookmark as CategoryIcon } from 'react-icons/fa';
 
+import TitleHeading from '@src/components/title-heading';
 import { CommonUtil } from '@src/utils/common.util';
 
 export interface IArticleTableContentProps {
@@ -70,12 +71,20 @@ export default function ArticleTableContent() {
   const { nestedHeadings } = useHeadingsData();
 
   return (
-    <Box rounded="xl" overflow="hidden" bg={colorMode === 'light' ? 'white' : 'gray.700'}>
-      {nestedHeadings.map((nestedHeading) => (
-        <p key={nestedHeading.id} id={nestedHeading.id}>
-          {nestedHeading.title}
-        </p>
-      ))}
+    <Box>
+      <TitleHeading title={'Table of contents'} />
+      <Box
+        rounded="xl"
+        overflow="hidden"
+        p="3"
+        bg={colorMode === 'light' ? 'white' : 'gray.700'}
+      >
+        {nestedHeadings.map((nestedHeading) => (
+          <Text fontSize="sm" key={nestedHeading.id} id={nestedHeading.id}>
+            {nestedHeading.title}
+          </Text>
+        ))}
+      </Box>
     </Box>
   );
 }

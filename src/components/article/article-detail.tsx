@@ -15,8 +15,11 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkSlug from 'remark-slug';
 import rehypeRaw from 'rehype-raw';
-import { PrismAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import {
+  a11yLight as lightCodeTheme,
+  a11yDark as darkCodeTheme
+} from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { FaCalendarAlt as CalendarIcon, FaBookmark as CategoryIcon } from 'react-icons/fa';
 import { format as formatDate } from 'date-fns';
 
@@ -78,7 +81,43 @@ export default function ArticleDetail(props: IArticleProps) {
 
         <Divider mb="5" />
 
-        <Box sx={{ all: 'initial', color: 'inherit', fontFamily: 'inherit' }}>
+        <Box
+          sx={{
+            // all: 'initial',
+            color: 'inherit',
+            fontFamily: 'inherit',
+            h2: {
+              margin: '1.5em 0 .2em',
+              fontWeight: 900,
+              fontSize: '1.75em'
+            },
+            h3: {
+              fontWeight: 700,
+              fontSize: '1.45em',
+              margin: '.75em 0 .5em'
+            },
+            p: {
+              fontsize: '1rem',
+              margin: '0'
+            },
+            a: {
+              color: 'blue.400'
+            },
+            ol: {
+              marginBlockStart: '1rem',
+              marginBlockEnd: '1rem',
+              paddingInlineStart: '2em'
+            },
+            ul: {
+              marginBlockStart: '1em',
+              marginBlockEnd: '1em',
+              paddingInlineStart: '2em'
+            },
+            pre: {
+              margin: '1em 0'
+            }
+          }}
+        >
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkSlug]}
             rehypePlugins={[rehypeRaw]}
@@ -87,10 +126,15 @@ export default function ArticleDetail(props: IArticleProps) {
                 const match = /language-(\w+)/.exec(className || '');
                 return !inline && match ? (
                   <SyntaxHighlighter
-                    style={vscDarkPlus}
+                    style={colorMode === 'light' ? lightCodeTheme : darkCodeTheme}
                     language={match[1]}
+                    customStyle={{
+                      background:
+                        colorMode === 'light'
+                          ? 'var(--chakra-colors-gray-100)'
+                          : 'var(--chakra-colors-gray-800)'
+                    }}
                     PreTag="div"
-                    showLineNumbers={true}
                   >
                     {String(children).replace(/\n$/, '')}
                   </SyntaxHighlighter>
