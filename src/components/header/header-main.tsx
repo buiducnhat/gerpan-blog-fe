@@ -29,12 +29,13 @@ export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
   return (
     <Box
       w="100%"
+      h="12"
       pos="sticky"
       top="0"
       zIndex="banner"
       bg={colorMode === 'light' ? 'gray.300' : 'gray.900'}
     >
-      <Container maxW="container.xl">
+      <Container maxW="container.xl" h="100%">
         <Flex as="nav" py="1" px={{ base: '0', md: '3' }} w="100%" align="center">
           <Logo color="primary.800" />
           <Spacer />

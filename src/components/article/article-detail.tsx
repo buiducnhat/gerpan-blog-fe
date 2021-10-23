@@ -36,7 +36,12 @@ export default function ArticleDetail(props: IArticleProps) {
   const { article } = props;
 
   return (
-    <Box rounded="xl" overflow="hidden" bg={colorMode === 'light' ? 'white' : 'gray.700'}>
+    <Box
+      rounded="xl"
+      overflow="hidden"
+      bg={colorMode === 'light' ? 'white' : 'gray.700'}
+      shadow="xl"
+    >
       <Image
         src={article.metas?.find((meta) => meta.key === ArticleMetaKey.BANNER)?.content}
         alt="placeholder"
@@ -86,12 +91,14 @@ export default function ArticleDetail(props: IArticleProps) {
             h2: {
               margin: '1.5em 0 .2em',
               fontWeight: 900,
-              fontSize: '2xl'
+              fontSize: '2xl',
+              scrollMarginTop: 'var(--chakra-space-16)'
             },
             h3: {
+              margin: '1em 0 .5em',
               fontWeight: 600,
               fontSize: 'xl',
-              margin: '1em 0 .5em'
+              scrollMarginTop: 'var(--chakra-space-16)'
             },
             p: {
               fontsize: '1rem',

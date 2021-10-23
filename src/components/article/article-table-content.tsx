@@ -1,18 +1,6 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import {
-  Box,
-  Image,
-  Heading,
-  Text,
-  HStack,
-  Button,
-  Avatar,
-  VStack,
-  Divider,
-  useColorMode
-} from '@chakra-ui/react';
-import { FaCalendarAlt as CalendarIcon, FaBookmark as CategoryIcon } from 'react-icons/fa';
+import { Box, Text, List, ListItem, UnorderedList, useColorMode } from '@chakra-ui/react';
 
 import TitleHeading from '@src/components/title-heading';
 import { CommonUtil } from '@src/utils/common.util';
@@ -29,16 +17,14 @@ export interface IHeadingTableContent {
 
 const getNestedHeadings = (headingElements: Element[]) => {
   headingElements = headingElements.map((item, index) => {
-    item.id = index.toString();
+    item.id = CommonUtil.makeSlug(item.innerHTML, index.toString());
     return item;
   });
 
   const nestedHeadings: IHeadingTableContent[] = [];
 
-  headingElements.forEach((heading, index) => {
+  headingElements.forEach((heading) => {
     let { innerHTML: title, id } = heading;
-    id = CommonUtil.makeSlug(title, index.toString());
-    console.log(id);
 
     if (heading.nodeName === 'H2') {
       nestedHeadings.push({ id, title, children: [] });
@@ -58,10 +44,7 @@ const useHeadingsData = () => {
 
   useEffect(() => {
     const headingElements = Array.from(document.querySelectorAll('h2, h3'));
-    console.log(headingElements)
-
-    const newNestedHeadings = getNestedHeadings(headingElements);
-    setNestedHeadings(newNestedHeadings);
+    setNestedHeadings(getNestedHeadings(headingElements));
   }, []);
 
   return { nestedHeadings };
@@ -78,14 +61,50 @@ export default function ArticleTableContent() {
       <Box
         rounded="xl"
         overflow="hidden"
-        p="3"
+        p="5"
         bg={colorMode === 'light' ? 'white' : 'gray.700'}
+        shadow="xl"
       >
-        {nestedHeadings.map((nestedHeading) => (
-          <Text fontSize="sm" key={nestedHeading.id} id={nestedHeading.id}>
-            {nestedHeading.title}
-          </Text>
-        ))}
+        <UnorderedList>
+          {nestedHeadings.map((h2Heading) => (
+            <ListItem key={h2Heading.id}>
+              <Link href={`#${h2Heading.id}`} passHref>
+                <Text
+                  cursor="pointer"
+                  _hover={{ color: 'primary.500' }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.querySelector(`#${h2Heading.id}`)?.scrollIntoView({
+                      behavior: 'smooth'
+                    });
+                  }}
+                >
+                  {h2Heading.title}
+                </Text>
+              </Link>
+              <List marginStart="3">
+                {h2Heading.children?.map((h3Heading) => (
+                  <ListItem key={h3Heading.id}>
+                    <Link href={`#${h3Heading.id}`} passHref>
+                      <Text
+                        cursor="pointer"
+                        _hover={{ color: 'primary.500' }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          document.querySelector(`#${h3Heading.id}`)?.scrollIntoView({
+                            behavior: 'smooth'
+                          });
+                        }}
+                      >
+                        {h3Heading.title}
+                      </Text>
+                    </Link>
+                  </ListItem>
+                ))}
+              </List>
+            </ListItem>
+          ))}
+        </UnorderedList>
       </Box>
     </Box>
   );
