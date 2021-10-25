@@ -105,6 +105,7 @@ export default function ArticleDetail(props: IArticleProps) {
               margin: '0'
             },
             a: {
+              fontsize: '1rem',
               color: 'blue.400'
             },
             ol: {

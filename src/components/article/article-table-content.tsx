@@ -23,10 +23,10 @@ const getNestedHeadings = (headingElements: Element[]) => {
 
   const nestedHeadings: IHeadingTableContent[] = [];
 
-  headingElements.forEach((heading) => {
+  headingElements.forEach((heading, index) => {
     let { innerHTML: title, id } = heading;
 
-    if (heading.nodeName === 'H2') {
+    if (heading.nodeName === 'H2' && index < headingElements.length - 2) {
       nestedHeadings.push({ id, title, children: [] });
     } else if (heading.nodeName === 'H3' && nestedHeadings.length > 0) {
       nestedHeadings[nestedHeadings.length - 1].children?.push({
@@ -65,7 +65,7 @@ export default function ArticleTableContent() {
         bg={colorMode === 'light' ? 'white' : 'gray.700'}
         shadow="xl"
       >
-        <UnorderedList>
+        <UnorderedList spacing="2">
           {nestedHeadings.map((h2Heading) => (
             <ListItem key={h2Heading.id}>
               <Link href={`#${h2Heading.id}`} passHref>
@@ -82,7 +82,7 @@ export default function ArticleTableContent() {
                   {h2Heading.title}
                 </Text>
               </Link>
-              <List marginStart="3">
+              <List marginStart="3" spacing="1">
                 {h2Heading.children?.map((h3Heading) => (
                   <ListItem key={h3Heading.id}>
                     <Link href={`#${h3Heading.id}`} passHref>
