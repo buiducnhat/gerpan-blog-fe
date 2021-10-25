@@ -82,7 +82,7 @@ export default function ArticleTableContent() {
                   {h2Heading.title}
                 </Text>
               </Link>
-              <List marginStart="3" spacing="1">
+              <List marginStart="5" spacing="1">
                 {h2Heading.children?.map((h3Heading) => (
                   <ListItem key={h3Heading.id}>
                     <Link href={`#${h3Heading.id}`} passHref>

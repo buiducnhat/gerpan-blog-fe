@@ -4,6 +4,6 @@ export const __userMock: IUserBasic = {
   id: 1,
   firstName: 'Nhật',
   lastName: 'Bùi',
-  avatar: 'https://bit.ly/2WElp9q',
+  avatar: '/logo.png',
   about: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit'
 };
