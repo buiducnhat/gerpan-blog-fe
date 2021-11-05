@@ -11,7 +11,7 @@ import { __articleTagsMock } from '@src/__mocks__/article-tags.mock';
 import { CommonUtil } from '@src/utils/common.util';
 import ArticleDetail from '@src/components/article/article-detail';
 import ArticleTableContent from '@src/components/article/article-table-content';
-import TitleHeading from '@src/components/title-heading';
+import ArticleSameAuthor from '@src/components/article/article-same-author';
 
 export default function ArticlePage() {
   const router = useRouter();
@@ -34,6 +34,7 @@ export default function ArticlePage() {
         <CustomColumn base={12} md={4} position="relative">
           <Box position="sticky" top="16">
             <ArticleTableContent />
+            <ArticleSameAuthor />
           </Box>
         </CustomColumn>
       </CustomRow>
