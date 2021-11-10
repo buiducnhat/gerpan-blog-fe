@@ -1,5 +1,5 @@
 import { Box, Avatar, VStack } from '@chakra-ui/react';
-import { IUserBasic } from '@src/models/user.interface';
+import { IUserBasic } from '@src/models/user.model';
 import { CommonUtil } from '@src/utils/common.util';
 import TitleHeading from '@src/components/title-heading';
 

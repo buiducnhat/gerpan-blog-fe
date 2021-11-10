@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Flex, Tag, Icon, HStack, Text } from '@chakra-ui/react';
 import { ThemeTypings } from '@chakra-ui/styled-system';
-import { IArticleTagBasic } from '@src/models/article-tag.interface';
+import { IArticleTagBasic } from '@src/models/article-tag.model';
 import { FaTags as TagsIcon } from 'react-icons/fa';
 
 export interface IArticleTagsRandomProps {

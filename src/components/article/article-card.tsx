@@ -17,7 +17,7 @@ import {
 } from 'react-icons/fa';
 import { format } from 'date-fns';
 
-import { ArticleMetaKey, IArticleBasic } from '@src/models/article.interface';
+import { ArticleMetaKey, IArticleBasic } from '@src/models/article.model';
 import { CommonUtil } from '@src/utils/common.util';
 
 export interface IArticleProps {

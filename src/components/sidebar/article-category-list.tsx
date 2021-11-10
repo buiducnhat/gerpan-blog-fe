@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Box, VStack, List, ListItem } from '@chakra-ui/react';
 
-import { IArticleCategoryBasic } from '@src/models/article-category.interface';
+import { IArticleCategoryBasic } from '@src/models/article-category.model';
 import TitleHeading from '@src/components/title-heading';
 
 export interface IArticleCategoryList {

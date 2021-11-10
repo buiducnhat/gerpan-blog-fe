@@ -1,4 +1,4 @@
-import { IArticleCategoryBasic } from '@src/models/article-category.interface';
+import { IArticleCategoryBasic } from '@src/models/article-category.model';
 import { CommonUtil } from '@src/utils/common.util';
 
 export const __articleCategoryMock: IArticleCategoryBasic = {

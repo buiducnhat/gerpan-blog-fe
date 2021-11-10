@@ -1,4 +1,4 @@
-import { IUserBasic } from '@src/models/user.interface';
+import { IUserBasic } from '@src/models/user.model';
 
 export const __userMock: IUserBasic = {
   id: 1,

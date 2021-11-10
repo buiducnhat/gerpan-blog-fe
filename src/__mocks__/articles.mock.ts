@@ -1,4 +1,4 @@
-import { ArticleMetaKey, IArticleBasic } from '@src/models/article.interface';
+import { ArticleMetaKey, IArticleBasic } from '@src/models/article.model';
 
 import { __userMock } from './user.mock';
 import { __articleCategoryMock } from './article-categories.mock';

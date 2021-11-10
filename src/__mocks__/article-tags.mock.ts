@@ -1,4 +1,4 @@
-import { IArticleTagBasic } from '@src/models/article-tag.interface';
+import { IArticleTagBasic } from '@src/models/article-tag.model';
 import { CommonUtil } from '@src/utils/common.util';
 
 export const __articleTagMock: IArticleTagBasic = {

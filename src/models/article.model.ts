@@ -1,7 +1,7 @@
-import { IArticleCategoryBasic } from './article-category.interface';
-import { IArticleCommentBasic } from './article-comment.interface';
-import { IArticleTagBasic } from './article-tag.interface';
-import { IUserBasic } from './user.interface';
+import { IArticleCategoryBasic } from './article-category.model';
+import { IArticleCommentBasic } from './article-comment.model';
+import { IArticleTagBasic } from './article-tag.model';
+import { IUserBasic } from './user.model';
 
 export enum ArticleMetaKey {
   BANNER = 'Banner',
