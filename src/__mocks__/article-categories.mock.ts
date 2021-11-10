@@ -4,7 +4,8 @@ import { CommonUtil } from '@src/utils/common.util';
 export const __articleCategoryMock: IArticleCategoryBasic = {
   id: 1,
   level: 1,
-  title: 'Category'
+  title: 'Category',
+  content: ''
 };
 
 const __articleCategoriesMock: IArticleCategoryBasic[] = [];
@@ -12,7 +13,8 @@ for (let i = 0; i < 5; i++) {
   __articleCategoriesMock.push({
     id: i + 1,
     title: CommonUtil.getRandomString(),
-    level: 1
+    level: 1,
+    content: ''
   });
 }
 
