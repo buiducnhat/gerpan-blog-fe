@@ -46,13 +46,11 @@ export const getStaticPaths: GetStaticPaths<IArticlePagePathProps> = async () =>
   const paths = articles.map((article) => ({
     params: { slug: CommonUtil.makeSlug(article.title, article.id + '') }
   }));
-  console.log(paths);
 
   return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps<IArticlePageProps> = async (context) => {
-  console.log(context);
   const { slug } = context.params as IArticlePagePathProps;
   const id = CommonUtil.getIdFromSlug(slug);
   const response = await fetch(`https://gerpan.xyz/api/articles/${id}`);

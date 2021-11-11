@@ -68,7 +68,7 @@ export default function ArticleDetail(props: IArticleDetailProps) {
             <HStack spacing="3">
               <HStack color="GrayText">
                 <CalendarIcon fontSize="sm" />
-                <Text>{formatDate(article.createdAt, 'MMM, dd yyyy')}</Text>
+                <Text>{formatDate(new Date(article.createdAt), 'MMM, dd yyyy')}</Text>
               </HStack>
 
               <Button colorScheme="green" variant="outline" size="xs" leftIcon={<CategoryIcon />}>
