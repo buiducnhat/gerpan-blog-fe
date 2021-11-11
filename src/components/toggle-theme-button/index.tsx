@@ -1,26 +1,17 @@
-import * as React from 'react';
-import { useColorMode, useColorModeValue, IconButton, IconButtonProps } from '@chakra-ui/react';
-import { FaMoon, FaSun } from 'react-icons/fa';
+import { useColorMode, useColorModeValue, Switch, FormControl, FormLabel } from '@chakra-ui/react';
+import { MdBrightness5 as SunIcon, MdBrightness4 as MoonIcon } from 'react-icons/md';
 
-type ToggleThemeButtonProps = Omit<IconButtonProps, 'aria-label'>;
-
-export default function ToggleThemeButton(props: any) {
+export default function ToggleThemeButton() {
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue('dark', 'light');
-  const SwitchIcon = useColorModeValue(FaMoon, FaSun);
+  const SwitchIcon = useColorModeValue(SunIcon, MoonIcon);
 
   return (
-    <IconButton
-      size="md"
-      fontSize="lg"
-      rounded="xl"
-      variant="ghost"
-      color="current"
-      marginLeft="2"
-      onClick={toggleColorMode}
-      icon={<SwitchIcon />}
-      aria-label={`Switch to ${text} mode`}
-      {...props}
-    />
+    <FormControl aria-label={`Switch to ${text} mode`} display="flex" alignItems="center">
+      <FormLabel htmlFor="switch-theme" mb="0">
+        <SwitchIcon />
+      </FormLabel>
+      <Switch id="switch-theme" colorScheme="purple" onChange={toggleColorMode} />
+    </FormControl>
   );
 }
