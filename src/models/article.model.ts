@@ -6,6 +6,7 @@ import { IUserBasic } from './user.model';
 export interface IArticleBasic {
   id: number;
   title: string;
+  slug?: string;
   description: string;
   banner: string;
   content: string;

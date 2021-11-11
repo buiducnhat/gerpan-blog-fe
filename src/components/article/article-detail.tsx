@@ -23,14 +23,14 @@ import {
 import { FaCalendarAlt as CalendarIcon, FaBookmark as CategoryIcon } from 'react-icons/fa';
 import { format as formatDate } from 'date-fns';
 
-import { ArticleMetaKey, IArticleBasic } from '@src/models/article.model';
+import { IArticleBasic } from '@src/models/article.model';
 import { CommonUtil } from '@src/utils/common.util';
 
-export interface IArticleProps {
+export interface IArticleDetailProps {
   article: IArticleBasic;
 }
 
-export default function ArticleDetail(props: IArticleProps) {
+export default function ArticleDetail(props: IArticleDetailProps) {
   const { colorMode } = useColorMode();
 
   const { article } = props;
@@ -42,13 +42,7 @@ export default function ArticleDetail(props: IArticleProps) {
       bg={colorMode === 'light' ? 'white' : 'gray.700'}
       shadow="xl"
     >
-      <Image
-        src={article.metas?.find((meta) => meta.key === ArticleMetaKey.BANNER)?.content}
-        alt="placeholder"
-        w="100%"
-        h="sm"
-        objectFit="cover"
-      />
+      <Image src={article.banner} alt="placeholder" w="100%" h="sm" objectFit="cover" />
 
       <Box p={{ base: 3, md: 5, lg: 8 }}>
         <Heading as="h1" mb="3">

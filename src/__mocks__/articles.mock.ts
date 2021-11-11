@@ -13,6 +13,7 @@ export const __articleMock: IArticleBasic = {
   published: true,
   author: __userMock,
   banner: 'https://timviec365.com/pictures/images/coder-la-gi-6(1).jpg',
+  slug: 'Lorem ipsum dolor sit amet consectetur adipisicing elit-1',
   category: __articleCategoryMock,
   tags: __articleTagsMock.slice(0, 3),
   comments: [
@@ -35,7 +36,12 @@ export const __articleMock: IArticleBasic = {
   updatedAt: new Date()
 };
 
-export const __articlesMock: IArticleBasic[] = new Array<IArticleBasic>(10).fill({
-  ...__articleMock,
-  id: 1 + Math.random() * 1000
-});
+const genArticles = () => {
+  const res = [];
+  for (let i = 1; i < 10; i++) {
+    res.push({ ...__articleMock, id: i });
+  }
+  return res;
+};
+
+export const __articlesMock: IArticleBasic[] = genArticles();

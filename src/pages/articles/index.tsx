@@ -10,8 +10,11 @@ import TitleHeading from '@src/components/title-heading';
 import { __userMock } from '@src/__mocks__/user.mock';
 import { __articlesMock } from '@src/__mocks__/articles.mock';
 import { __articleTagsMock } from '@src/__mocks__/article-tags.mock';
+import { IArticleBasic } from '@src/models/article.model';
+import { CommonUtil } from '@src/utils/common.util';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 
-export default function ArticlesPage() {
+export default function ArticlesPage({ articles }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <MainTemplate meta={<Meta title="Articles | Gerpan Blog" description="Gerpan Blog" />}>
       <CustomRow>
@@ -22,10 +25,8 @@ export default function ArticlesPage() {
           <ArticleTagsRandom tags={__articleTagsMock} />
           <Box mb="5" />
 
-          {__articlesMock?.length > 0 &&
-            __articlesMock.map((__article) => (
-              <ArticleCard key={Math.random()} article={__article} />
-            ))}
+          {articles?.length > 0 &&
+            articles.map((__article) => <ArticleCard key={__article.id} article={__article} />)}
         </CustomColumn>
         <CustomColumn base={12} md={4}>
           <MainRightSideBar user={__userMock} />
@@ -34,3 +35,22 @@ export default function ArticlesPage() {
     </MainTemplate>
   );
 }
+
+interface IArticlesPageProp {
+  articles: IArticleBasic[];
+}
+
+export const getStaticProps: GetStaticProps<IArticlesPageProp> = async (context) => {
+  const response = await fetch('https://gerpan.xyz/api/articles');
+  const result = await response.json();
+
+  const articles: IArticleBasic[] = result.items;
+  return {
+    props: {
+      articles: articles.map((item) => ({
+        ...item,
+        slug: CommonUtil.makeSlug(item.title, item.id + '')
+      }))
+    }
+  };
+};

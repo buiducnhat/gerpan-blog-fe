@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   Box,
@@ -17,14 +18,14 @@ import {
 } from 'react-icons/fa';
 import { format } from 'date-fns';
 
-import { ArticleMetaKey, IArticleBasic } from '@src/models/article.model';
+import { IArticleBasic } from '@src/models/article.model';
 import { CommonUtil } from '@src/utils/common.util';
 
-export interface IArticleProps {
+export interface IArticleCardProps {
   article: IArticleBasic;
 }
 
-export default function ArticleCard(props: IArticleProps) {
+export default function ArticleCard(props: IArticleCardProps) {
   const { colorMode } = useColorMode();
 
   const { article } = props;
@@ -39,7 +40,7 @@ export default function ArticleCard(props: IArticleProps) {
     >
       <Link href={`/articles/${article.slug}`} passHref>
         <Image
-          src={article.metas?.find((meta) => meta.key === ArticleMetaKey.BANNER)?.content}
+          src={article.banner}
           alt="placeholder"
           w="100%"
           h="200px"
@@ -79,7 +80,7 @@ export default function ArticleCard(props: IArticleProps) {
 
           <Tag variant="subtle" colorScheme="purple" size="lg">
             <TagLeftIcon boxSize="3" as={CalendarIcon}></TagLeftIcon>
-            <TagLabel>{format(article.createdAt, 'MMMM dd yyyy')}</TagLabel>
+            <TagLabel>{format(new Date(article.createdAt), 'MMMM dd yyyy')}</TagLabel>
           </Tag>
         </HStack>
 
