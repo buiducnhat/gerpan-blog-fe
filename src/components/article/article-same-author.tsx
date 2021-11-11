@@ -17,6 +17,7 @@ import { FaCalendarAlt as CalendarIcon, FaBookmark as CategoryIcon } from 'react
 import TitleHeading from '@src/components/title-heading';
 import { CommonUtil } from '@src/utils/common.util';
 import { __articlesMock } from '@src/__mocks__/articles.mock';
+import { IArticleBasic } from '@src/models/article.model';
 
 export interface IArticleTableContentProps {
   content: string;
@@ -28,7 +29,11 @@ export interface IHeadingTableContent {
   children?: IHeadingTableContent[];
 }
 
-export default function ArticleSameAuthor() {
+export interface IArticlesSameAuthorProps {
+  articles: IArticleBasic[];
+}
+
+export default function ArticlesSameAuthor({ articles }: IArticlesSameAuthorProps) {
   const { colorMode } = useColorMode();
 
   return (
@@ -36,14 +41,15 @@ export default function ArticleSameAuthor() {
       <TitleHeading title={'Same author'} />
 
       <VStack>
-        {__articlesMock.slice(0, 3).map((__article) => (
+        {articles.map((__article) => (
           <Box
             key={__article.id}
+            w="100%"
             p="3"
             bg={colorMode === 'light' ? 'white' : 'gray.700'}
             rounded="xl"
           >
-            <NextLink href={__article.slug} passHref>
+            <NextLink href={__article.slug || '/404'} passHref>
               <Text as={'a'} _hover={{ color: 'primary.500' }}>
                 {__article.title}
               </Text>
@@ -57,7 +63,7 @@ export default function ArticleSameAuthor() {
               <Button colorScheme="green" variant="outline" size="xs" leftIcon={<CategoryIcon />}>
                 {__article.category.title}
               </Button>
-              <HStack >
+              <HStack>
                 {__article.tags.map((__tag) => (
                   <Button key={__tag.id} variant="outline" colorScheme="blue" size="xs">
                     {__tag.title}
