@@ -10,6 +10,7 @@ import ArticleDetail from '@src/components/article/article-detail';
 import ArticleTableContent from '@src/components/article/article-table-content';
 import ArticlesSameAuthor from '@src/components/article/article-same-author';
 import { IArticleBasic } from '@src/models/article.model';
+import { API_ENDPOINT } from '@src/configs';
 
 export default function ArticlePage({
   article,
@@ -43,7 +44,7 @@ export interface IArticlePagePathProps extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<IArticlePagePathProps> = async () => {
-  const response = await fetch('https://gerpan.xyz/api/articles');
+  const response = await fetch(`${API_ENDPOINT}/articles`);
   const result = await response.json();
   const articles: IArticleBasic[] = result.items;
 
@@ -58,8 +59,8 @@ export const getStaticProps: GetStaticProps<IArticlePageProps> = async (context)
   const { slug } = context.params as IArticlePagePathProps;
   const id = CommonUtil.getIdFromSlug(slug);
 
-  const articleResponse = await fetch(`https://gerpan.xyz/api/articles/${id}`);
-  const sameAuthorArticlesResponse = await fetch(`https://gerpan.xyz/api/articles?limit=3`);
+  const articleResponse = await fetch(`${API_ENDPOINT}/articles/${id}`);
+  const sameAuthorArticlesResponse = await fetch(`${API_ENDPOINT}/articles?limit=3`);
   const article: IArticleBasic = await articleResponse.json();
   const sameAuthorArticles: IArticleBasic[] = (await sameAuthorArticlesResponse.json()).items;
 

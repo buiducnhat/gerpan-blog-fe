@@ -13,6 +13,7 @@ import { CommonUtil } from '@src/utils/common.util';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { IArticleTagBasic } from '@src/models/article-tag.model';
 import { IArticleCategoryBasic } from '@src/models/article-category.model';
+import { API_ENDPOINT } from '@src/configs';
 
 export default function ArticlesPage({
   articles,
@@ -47,9 +48,9 @@ interface IArticlesPageProps {
 }
 
 export const getStaticProps: GetStaticProps<IArticlesPageProps> = async (context) => {
-  const articlesResponse = await fetch('https://gerpan.xyz/api/articles');
-  const articleTagsResponse = await fetch('https://gerpan.xyz/api/articles/tags');
-  const articleCategoriesponse = await fetch('https://gerpan.xyz/api/articles/categories');
+  const articlesResponse = await fetch(`${API_ENDPOINT}/articles`);
+  const articleTagsResponse = await fetch(`${API_ENDPOINT}/articles/tags`);
+  const articleCategoriesponse = await fetch(`${API_ENDPOINT}/articles/categories`);
 
   const articlesResult = await articlesResponse.json();
   const articleTags: IArticleTagBasic[] = await articleTagsResponse.json();
