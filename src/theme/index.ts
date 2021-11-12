@@ -7,7 +7,7 @@ const config: ThemeConfig = {
 };
 
 const theme = extendTheme({
-  // config,
+  config,
   styles: {
     global: (props: any) => ({
       body: {

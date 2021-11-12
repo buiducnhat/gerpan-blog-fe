@@ -43,7 +43,7 @@ export default function ArticleCard(props: IArticleCardProps) {
           src={article.banner}
           alt="placeholder"
           w="100%"
-          h="200px"
+          h={{ base: '48', md: '72' }}
           objectFit="cover"
           mb={3}
           cursor="pointer"
