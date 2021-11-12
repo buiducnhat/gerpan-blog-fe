@@ -13,7 +13,7 @@ export interface IMainLeftSidebarProps {
 
 export default function MainRightSideBar({ user, articleCategories }: IMainLeftSidebarProps) {
   return (
-    <VStack>
+    <VStack position="sticky" top="16">
       <AboutMe user={user} />
 
       <Box h="5" />

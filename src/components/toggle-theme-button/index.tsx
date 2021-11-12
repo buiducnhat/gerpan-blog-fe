@@ -11,7 +11,12 @@ export default function ToggleThemeButton() {
       <FormLabel htmlFor="switch-theme" mb="0">
         <SwitchIcon />
       </FormLabel>
-      <Switch id="switch-theme" colorScheme="purple" isChecked={colorMode === 'dark'} onChange={toggleColorMode} />
+      <Switch
+        id="switch-theme"
+        colorScheme="purple"
+        isChecked={colorMode === 'dark'}
+        onChange={toggleColorMode}
+      />
     </FormControl>
   );
 }

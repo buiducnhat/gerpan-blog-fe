@@ -33,7 +33,7 @@ export default function ArticlesPage({
           {articles?.length > 0 &&
             articles.map((__article) => <ArticleCard key={__article.id} article={__article} />)}
         </CustomColumn>
-        <CustomColumn base={12} md={4}>
+        <CustomColumn base={12} md={4} position="relative">
           <MainRightSideBar user={__userMock} articleCategories={articleCategories} />
         </CustomColumn>
       </CustomRow>

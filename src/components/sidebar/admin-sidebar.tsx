@@ -63,7 +63,7 @@ interface IAdminSidebarProps {
   setOpenDrawer: any;
 }
 
-export default function AdminSidebar ({ openDrawer, setOpenDrawer }: IAdminSidebarProps) {
+export default function AdminSidebar({ openDrawer, setOpenDrawer }: IAdminSidebarProps) {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { colorMode } = useColorMode();
 
@@ -82,7 +82,7 @@ export default function AdminSidebar ({ openDrawer, setOpenDrawer }: IAdminSideb
       ))}
     </List>
   );
-};
+}
 
 const MyDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any }) => {
   return (
