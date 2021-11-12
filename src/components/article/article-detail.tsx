@@ -42,9 +42,15 @@ export default function ArticleDetail(props: IArticleDetailProps) {
       bg={colorMode === 'light' ? 'white' : 'gray.700'}
       shadow="xl"
     >
-      <Image src={article.banner} alt="placeholder" w="100%" h="sm" objectFit="cover" />
+      <Image
+        src={article.banner}
+        alt="placeholder"
+        w="100%"
+        h={{ base: '3xs', md: 'sm' }}
+        objectFit="cover"
+      />
 
-      <Box p={{ base: 3, md: 5, lg: 8 }}>
+      <Box p={{ base: 3, md: 5, lg: 10 }}>
         <Heading as="h1" mb="3">
           {article.title}
         </Heading>
@@ -83,37 +89,45 @@ export default function ArticleDetail(props: IArticleDetailProps) {
         <Box
           sx={{
             h2: {
-              margin: '1.5em 0 .2em',
-              fontWeight: 900,
-              fontSize: '2xl',
+              margin: '0.75rem 0',
+              fontWeight: 700,
+              fontSize: '1.5em',
               scrollMarginTop: 'var(--chakra-space-16)'
             },
             h3: {
-              margin: '1em 0 .5em',
-              fontWeight: 600,
-              fontSize: 'xl',
+              margin: '0.75rem 0',
+              fontWeight: 700,
+              fontSize: '1.25em',
+              scrollMarginTop: 'var(--chakra-space-16)'
+            },
+            h4: {
+              margin: '0.75rem 0',
+              fontWeight: 500,
+              fontSize: '1.25em',
               scrollMarginTop: 'var(--chakra-space-16)'
             },
             p: {
-              fontsize: '1rem',
-              margin: '0 0 1rem 0'
+              fontSize: '1.25rem',
+              margin: '0 0 1.25rem 0'
             },
             a: {
-              fontsize: '1rem',
+              fontsize: '1.25rem',
               color: 'blue.400'
             },
             ol: {
-              marginBlockStart: '1rem',
-              marginBlockEnd: '1rem',
-              paddingInlineStart: '2em'
+              marginBlockEnd: '0.75rem',
+              paddingInlineStart: '2.5rem'
             },
             ul: {
-              marginBlockStart: '1em',
-              marginBlockEnd: '1em',
-              paddingInlineStart: '2em'
+              marginBlockEnd: '0.75rem',
+              paddingInlineStart: '2.5rem'
+            },
+            li: {
+              fontSize: '1.25rem'
             },
             pre: {
-              margin: '1em 0'
+              fontSize: '1em',
+              margin: '1rem 0'
             }
           }}
         >
@@ -131,7 +145,9 @@ export default function ArticleDetail(props: IArticleDetailProps) {
                       background:
                         colorMode === 'light'
                           ? 'var(--chakra-colors-gray-100)'
-                          : 'var(--chakra-colors-gray-800)'
+                          : 'var(--chakra-colors-gray-800)',
+                      borderRadius: 'var(--chakra-radii-xl)',
+                      padding: 'var(--chakra-space-5)'
                     }}
                     PreTag="div"
                   >
