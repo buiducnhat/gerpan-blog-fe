@@ -2,7 +2,7 @@ import { useColorMode, useColorModeValue, Switch, FormControl, FormLabel } from 
 import { MdBrightness5 as SunIcon, MdBrightness4 as MoonIcon } from 'react-icons/md';
 
 export default function ToggleThemeButton() {
-  const { toggleColorMode } = useColorMode();
+  const { toggleColorMode, colorMode } = useColorMode();
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(SunIcon, MoonIcon);
 
@@ -11,7 +11,7 @@ export default function ToggleThemeButton() {
       <FormLabel htmlFor="switch-theme" mb="0">
         <SwitchIcon />
       </FormLabel>
-      <Switch id="switch-theme" colorScheme="purple" onChange={toggleColorMode} />
+      <Switch id="switch-theme" colorScheme="purple" isChecked={colorMode === 'dark'} onChange={toggleColorMode} />
     </FormControl>
   );
 }
