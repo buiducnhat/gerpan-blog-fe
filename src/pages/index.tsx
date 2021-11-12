@@ -41,13 +41,13 @@ export default function HomePage({
   );
 }
 
-interface IHomePageProp {
+interface IHomePageProps {
   articles: IArticleBasic[];
   articleTags: IArticleTagBasic[];
   articleCategories: IArticleCategoryBasic[];
 }
 
-export const getStaticProps: GetStaticProps<IHomePageProp> = async (context) => {
+export const getStaticProps: GetStaticProps<IHomePageProps> = async (context) => {
   const articlesResponse = await fetch(`${API_ENDPOINT}/articles/?page=1&limit=10`);
   const articleTagsResponse = await fetch(`${API_ENDPOINT}/articles/tags`);
   const articleCategoriesponse = await fetch(`${API_ENDPOINT}/articles/categories`);
