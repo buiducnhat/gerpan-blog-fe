@@ -34,7 +34,7 @@ export const AdminHeader = ({ setOpenDrawer }: IAdminHeaderProps) => {
       bg={colorMode === 'light' ? 'gray.300' : 'gray.900'}
       align="center"
     >
-      <Logo color="primary.800" />
+      <Logo />
       <Spacer />
 
       <Box>
