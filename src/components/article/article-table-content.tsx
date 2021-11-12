@@ -3,25 +3,19 @@ import { useState, useEffect } from 'react';
 import { Box, Text, List, ListItem, UnorderedList, useColorMode } from '@chakra-ui/react';
 
 import TitleHeading from '@src/components/title-heading';
-import { CommonUtil } from '@src/utils/common.util';
 
 export interface IArticleTableContentProps {
   content: string;
 }
 
-export interface IHeadingTableContent {
+export interface IHeadingTableContentProps {
   id: string;
   title: string;
-  children?: IHeadingTableContent[];
+  children?: IHeadingTableContentProps[];
 }
 
-const getNestedHeadings = (headingElements: Element[]) => {
-  headingElements = headingElements.map((item, index) => {
-    item.id = CommonUtil.makeSlug(item.innerHTML, index.toString());
-    return item;
-  });
-
-  const nestedHeadings: IHeadingTableContent[] = [];
+const makeNestedHeadings = (headingElements: Element[]) => {
+  const nestedHeadings: IHeadingTableContentProps[] = [];
 
   headingElements.forEach((heading, index) => {
     let { innerHTML: title, id } = heading;
@@ -40,14 +34,33 @@ const getNestedHeadings = (headingElements: Element[]) => {
 };
 
 const useHeadingsData = () => {
-  const [nestedHeadings, setNestedHeadings] = useState<IHeadingTableContent[]>([]);
+  const [nestedHeadings, setNestedHeadings] = useState<IHeadingTableContentProps[]>([]);
 
   useEffect(() => {
-    const headingElements = Array.from(document.querySelectorAll('h2, h3'));
-    setNestedHeadings(getNestedHeadings(headingElements));
+    const headingElements = Array.from(document.querySelectorAll('h2, h3')).filter(
+      (heading) => heading.id !== 'table-of-contents'
+    );
+    setNestedHeadings(makeNestedHeadings(headingElements));
   }, []);
 
   return { nestedHeadings };
+};
+
+const HeadingLink = ({ title, id }: { title: string; id: string }) => {
+  return (
+    <Text
+      cursor="pointer"
+      _hover={{ color: 'primary.500' }}
+      onClick={(e) => {
+        e.preventDefault();
+        document.getElementById(id)?.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }}
+    >
+      {title}
+    </Text>
+  );
 };
 
 export default function ArticleTableContent() {
@@ -57,7 +70,7 @@ export default function ArticleTableContent() {
 
   return (
     <Box>
-      <TitleHeading title={'Table of contents'} />
+      <TitleHeading title={'Table of contents'} id={'table-of-contents'} />
       <Box
         rounded="xl"
         overflow="hidden"
@@ -69,35 +82,13 @@ export default function ArticleTableContent() {
           {nestedHeadings.map((h2Heading) => (
             <ListItem key={h2Heading.id}>
               <Link href={`#${h2Heading.id}`} passHref>
-                <Text
-                  cursor="pointer"
-                  _hover={{ color: 'primary.500' }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector(`#${h2Heading.id}`)?.scrollIntoView({
-                      behavior: 'smooth'
-                    });
-                  }}
-                >
-                  {h2Heading.title}
-                </Text>
+                <HeadingLink title={h2Heading.title} id={h2Heading.id} />
               </Link>
               <List marginStart="5" spacing="1">
                 {h2Heading.children?.map((h3Heading) => (
                   <ListItem key={h3Heading.id}>
                     <Link href={`#${h3Heading.id}`} passHref>
-                      <Text
-                        cursor="pointer"
-                        _hover={{ color: 'primary.500' }}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          document.querySelector(`#${h3Heading.id}`)?.scrollIntoView({
-                            behavior: 'smooth'
-                          });
-                        }}
-                      >
-                        {h3Heading.title}
-                      </Text>
+                      <HeadingLink title={h3Heading.title} id={h3Heading.id} />
                     </Link>
                   </ListItem>
                 ))}

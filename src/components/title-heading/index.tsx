@@ -1,10 +1,10 @@
-import { Heading, useTheme, useColorMode } from '@chakra-ui/react';
+import { Heading, useTheme, useColorMode, HeadingProps } from '@chakra-ui/react';
 
-export interface ITitleHeadingProps {
+export interface ITitleHeadingProps extends HeadingProps {
   title: string;
 }
 
-export default function TitleHeading({ title, ...props }: ITitleHeadingProps) {
+export default function TitleHeading({ title, ...rest }: ITitleHeadingProps) {
   const theme = useTheme();
   const { colorMode } = useColorMode();
 
@@ -19,7 +19,7 @@ export default function TitleHeading({ title, ...props }: ITitleHeadingProps) {
       boxShadow={`inset 0 -${theme.sizes['2']} 0 ${
         theme.colors.primary[colorMode === 'light' ? 300 : 600]
       }`}
-      {...props}
+      {...rest}
     >
       {title}
     </Heading>

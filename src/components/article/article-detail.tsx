@@ -132,7 +132,7 @@ export default function ArticleDetail(props: IArticleDetailProps) {
           }}
         >
           <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
+            remarkPlugins={[remarkGfm, remarkSlug]}
             rehypePlugins={[rehypeRaw]}
             components={{
               code({ node, inline, className, children, ...props }) {
