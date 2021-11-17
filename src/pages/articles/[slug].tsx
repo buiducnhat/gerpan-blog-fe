@@ -9,7 +9,7 @@ import { CommonUtil } from '@src/utils/common.util';
 import ArticleDetail from '@src/components/article/article-detail';
 import ArticleTableContent from '@src/components/article/article-table-content';
 import ArticlesSameAuthor from '@src/components/article/article-same-author';
-import { IArticleBasic, IPaginatiedArticles } from '@src/models/article.model';
+import { IArticleBasic } from '@src/models/article.model';
 import { API_ENDPOINT } from '@src/configs';
 import axios from 'axios';
 

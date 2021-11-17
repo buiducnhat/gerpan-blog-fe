@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { Box } from '@chakra-ui/layout';
-import useSWR, { SWRConfig } from 'swr';
 import axios from 'axios';
 
 import { Meta } from '@src/layouts/meta';
@@ -14,13 +13,13 @@ import ArticleTagsRandom from '@src/components/article-tags/article-tags-random'
 import TitleHeading from '@src/components/title-heading';
 import { __userMock } from '@src/__mocks__/user.mock';
 import { IArticleBasic, IPaginatiedArticles } from '@src/models/article.model';
-import { CommonUtil } from '@src/utils/common.util';
 import { IArticleTagBasic } from '@src/models/article-tag.model';
 import { IArticleCategoryBasic } from '@src/models/article-category.model';
 import { API_ENDPOINT, PUBLIC_API_ENDPOINT } from '@src/configs';
-import { useGetArticle } from '@src/api/useGetArticle';
 
-export default function ArticlesPage(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function ArticlesPage(
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
   const router = useRouter();
 
   const { articleTags, articleCategories } = props;
@@ -29,10 +28,10 @@ export default function ArticlesPage(props: InferGetServerSidePropsType<typeof g
     props.paginatedArticles
   );
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(router.query);
-    setFilter(router.query)
-  }, [router.query])
+    setFilter(router.query);
+  }, [router.query]);
 
   useEffect(() => {
     axios

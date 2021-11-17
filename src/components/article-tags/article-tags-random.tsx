@@ -10,7 +10,7 @@ export interface IArticleTagsRandomProps {
   setFilter: Function;
 }
 
-export default function ArticleTagsRandom({ tags, setFilter }: IArticleTagsRandomProps) {
+export default function ArticleTagsRandom({ tags }: IArticleTagsRandomProps) {
   const router = useRouter();
 
   const colorSchemes: ThemeTypings['colorSchemes'][] = [

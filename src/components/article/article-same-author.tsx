@@ -1,22 +1,8 @@
 import NextLink from 'next/link';
-import { useState, useEffect } from 'react';
-import {
-  Box,
-  Text,
-  List,
-  ListItem,
-  UnorderedList,
-  useColorMode,
-  VStack,
-  HStack,
-  Button,
-  Divider
-} from '@chakra-ui/react';
-import { FaCalendarAlt as CalendarIcon, FaBookmark as CategoryIcon } from 'react-icons/fa';
+import { Box, Text, useColorMode, VStack, HStack, Button } from '@chakra-ui/react';
+import { FaBookmark as CategoryIcon } from 'react-icons/fa';
 
 import TitleHeading from '@src/components/title-heading';
-import { CommonUtil } from '@src/utils/common.util';
-import { __articlesMock } from '@src/__mocks__/articles.mock';
 import { IArticleBasic } from '@src/models/article.model';
 
 export interface IArticleTableContentProps {

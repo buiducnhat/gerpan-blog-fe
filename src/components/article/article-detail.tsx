@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import {
   Box,
   Image,
@@ -11,18 +10,10 @@ import {
   Divider,
   useColorMode
 } from '@chakra-ui/react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import remarkSlug from 'remark-slug';
-import rehypeRaw from 'rehype-raw';
-import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
-import {
-  a11yLight as lightCodeTheme,
-  a11yDark as darkCodeTheme
-} from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { FaCalendarAlt as CalendarIcon, FaBookmark as CategoryIcon } from 'react-icons/fa';
 import { format as formatDate } from 'date-fns';
 
+import Markdown from './markdown';
 import { IArticleBasic } from '@src/models/article.model';
 import { CommonUtil } from '@src/utils/common.util';
 
@@ -86,84 +77,7 @@ export default function ArticleDetail(props: IArticleDetailProps) {
 
         <Divider mb="5" />
 
-        <Box
-          sx={{
-            h2: {
-              margin: '0.75rem 0',
-              fontWeight: 700,
-              fontSize: '1.5em',
-              scrollMarginTop: 'var(--chakra-space-16)'
-            },
-            h3: {
-              margin: '0.75rem 0',
-              fontWeight: 700,
-              fontSize: '1.25em',
-              scrollMarginTop: 'var(--chakra-space-16)'
-            },
-            h4: {
-              margin: '0.75rem 0',
-              fontWeight: 500,
-              fontSize: '1.25em',
-              scrollMarginTop: 'var(--chakra-space-16)'
-            },
-            p: {
-              fontSize: '1.25rem',
-              margin: '0 0 1.25rem 0'
-            },
-            a: {
-              fontsize: '1.25rem',
-              color: 'blue.400'
-            },
-            ol: {
-              marginBlockEnd: '0.75rem',
-              paddingInlineStart: '2.5rem'
-            },
-            ul: {
-              marginBlockEnd: '0.75rem',
-              paddingInlineStart: '2.5rem'
-            },
-            li: {
-              fontSize: '1.25rem'
-            },
-            pre: {
-              fontSize: '1em',
-              margin: '1rem 0'
-            }
-          }}
-        >
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm, remarkSlug]}
-            rehypePlugins={[rehypeRaw]}
-            components={{
-              code({ node, inline, className, children, ...props }) {
-                const match = /language-(\w+)/.exec(className || '');
-                return !inline && match ? (
-                  <SyntaxHighlighter
-                    style={colorMode === 'light' ? lightCodeTheme : darkCodeTheme}
-                    language={match[1]}
-                    customStyle={{
-                      background:
-                        colorMode === 'light'
-                          ? 'var(--chakra-colors-gray-100)'
-                          : 'var(--chakra-colors-gray-800)',
-                      borderRadius: 'var(--chakra-radii-xl)',
-                      padding: 'var(--chakra-space-5)'
-                    }}
-                    PreTag="div"
-                  >
-                    {String(children).replace(/\n$/, '')}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                );
-              }
-            }}
-          >
-            {article.content}
-          </ReactMarkdown>
-        </Box>
+        <Markdown content={article.content} />
       </Box>
     </Box>
   );
