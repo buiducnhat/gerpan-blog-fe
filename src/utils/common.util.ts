@@ -28,7 +28,9 @@ export class CommonUtil {
   }
 
   static getIdFromSlug(slug: string) {
-    return slug.split('-').slice(-1)[0];
+    const match = slug.match(/\d+/gm);
+    if (!match) return 0;
+    return +match.slice(-1)[0];
   }
 
   static removeVietnameseAccent(char: string): string {
@@ -46,14 +48,15 @@ export class CommonUtil {
     return char;
   }
 
-  static makeSlug(str: string, tail = '') {
+  static makeSlug(str: string, postfix: string | number) {
     str = this.removeVietnameseAccent(str);
     str = str.replace(/^\s+|\s+$/g, ''); // trim
     str = str
       .replace(/[^a-z0-9 -]/g, '') // remove invalid chars
       .replace(/\s+/g, '-') // collapse whitespace and replace by -
       .replace(/-+/g, '-'); // collapse dashes
-    tail = tail ? `-${tail}` : '';
-    return str + tail;
+
+    postfix = postfix ? `-${postfix}` : '';
+    return str + postfix;
   }
 }

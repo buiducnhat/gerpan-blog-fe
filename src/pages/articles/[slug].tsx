@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { Box } from '@chakra-ui/react';
 import { ParsedUrlQuery } from 'querystring';
 
@@ -9,13 +9,14 @@ import { CommonUtil } from '@src/utils/common.util';
 import ArticleDetail from '@src/components/article/article-detail';
 import ArticleTableContent from '@src/components/article/article-table-content';
 import ArticlesSameAuthor from '@src/components/article/article-same-author';
-import { IArticleBasic } from '@src/models/article.model';
+import { IArticleBasic, IPaginatiedArticles } from '@src/models/article.model';
 import { API_ENDPOINT } from '@src/configs';
+import axios from 'axios';
 
 export default function ArticlePage({
   article,
   sameAuthorArticles
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <MainTemplate meta={<Meta title="Articles | Gerpan Blog" description="Gerpan Blog" />}>
       <CustomRow>
@@ -39,38 +40,30 @@ export interface IArticlePageProps {
   sameAuthorArticles: IArticleBasic[];
 }
 
-export interface IArticlePagePathProps extends ParsedUrlQuery {
-  slug: string;
-}
+export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (context) => {
+  const params = context.params;
+  const { slug } = params as ParsedUrlQuery;
+  const id = CommonUtil.getIdFromSlug(slug as string);
 
-export const getStaticPaths: GetStaticPaths<IArticlePagePathProps> = async () => {
-  const response = await fetch(`${API_ENDPOINT}/articles`);
-  const result = await response.json();
-  const articles: IArticleBasic[] = result.items;
-
-  const paths = articles.map((article) => ({
-    params: { slug: CommonUtil.makeSlug(article.title, article.id + '') }
-  }));
-
-  return { paths, fallback: false };
-};
-
-export const getStaticProps: GetStaticProps<IArticlePageProps> = async (context) => {
-  const { slug } = context.params as IArticlePagePathProps;
-  const id = CommonUtil.getIdFromSlug(slug);
-
-  const articleResponse = await fetch(`${API_ENDPOINT}/articles/${id}`);
-  const sameAuthorArticlesResponse = await fetch(`${API_ENDPOINT}/articles?limit=3`);
-  const article: IArticleBasic = await articleResponse.json();
-  const sameAuthorArticles: IArticleBasic[] = (await sameAuthorArticlesResponse.json()).items;
-
-  return {
-    props: {
-      article,
-      sameAuthorArticles: sameAuthorArticles.map((item) => ({
-        ...item,
-        slug: CommonUtil.makeSlug(item.title, item.id + '')
-      }))
+  try {
+    const article: IArticleBasic = (await axios.get(`${API_ENDPOINT}/articles/${id}`)).data;
+    if (CommonUtil.makeSlug(article.title, id) !== slug) {
+      throw Error();
     }
-  };
+
+    const sameAuthorArticles: IArticleBasic[] = (
+      await axios.get(`${API_ENDPOINT}/articles?limit=3`)
+    ).data.items;
+
+    return {
+      props: {
+        article,
+        sameAuthorArticles
+      }
+    };
+  } catch (error) {
+    return {
+      notFound: true
+    };
+  }
 };

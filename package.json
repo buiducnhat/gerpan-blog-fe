@@ -14,6 +14,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@fontsource/noto-sans-display": "^4.5.0",
+    "axios": "^0.24.0",
     "date-fns": "^2.25.0",
     "date-fns-tz": "^1.1.6",
     "framer-motion": "^4",
@@ -28,7 +29,8 @@
     "rehype-sanitize": "^5.0.0",
     "remark-gfm": "^3.0.0",
     "remark-slug": "^7.0.0",
-    "remark-toc": "^8.0.0"
+    "remark-toc": "^8.0.0",
+    "swr": "^1.0.1"
   },
   "devDependencies": {
     "@types/react": "17.0.26",

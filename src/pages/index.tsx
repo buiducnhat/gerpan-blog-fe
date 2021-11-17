@@ -1,4 +1,9 @@
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { Box } from '@chakra-ui/layout';
+import useSWR, { SWRConfig } from 'swr';
+import axios from 'axios';
 
 import { Meta } from '@src/layouts/meta';
 import { Main as MainTemplate } from '@src/templates/main';
@@ -8,18 +13,33 @@ import { CustomRow, CustomColumn } from '@src/components/custom-grid';
 import ArticleTagsRandom from '@src/components/article-tags/article-tags-random';
 import TitleHeading from '@src/components/title-heading';
 import { __userMock } from '@src/__mocks__/user.mock';
-import { IArticleBasic } from '@src/models/article.model';
+import { IArticleBasic, IPaginatiedArticles } from '@src/models/article.model';
 import { CommonUtil } from '@src/utils/common.util';
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { IArticleTagBasic } from '@src/models/article-tag.model';
 import { IArticleCategoryBasic } from '@src/models/article-category.model';
-import { API_ENDPOINT } from '@src/configs';
+import { API_ENDPOINT, PUBLIC_API_ENDPOINT } from '@src/configs';
+import { useGetArticle } from '@src/api/useGetArticle';
 
-export default function HomePage({
-  articles,
-  articleCategories,
-  articleTags
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function HomePage(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const router = useRouter();
+
+  const { articleTags, articleCategories } = props;
+  const [filter, setFilter] = useState<IFilter>(router.query as IFilter);
+  const [paginatedArticles, setPaginatedArticles] = useState<IPaginatiedArticles>(
+    props.paginatedArticles
+  );
+
+  useEffect(()=>{
+    console.log(router.query);
+    setFilter(router.query)
+  }, [router.query])
+
+  useEffect(() => {
+    axios
+      .get(`${PUBLIC_API_ENDPOINT}/articles`, { params: filter })
+      .then((res) => setPaginatedArticles(res.data));
+  }, [filter]);
+
   return (
     <MainTemplate meta={<Meta title="Home | Gerpan Blog" description="Gerpan Blog" />}>
       <CustomRow>
@@ -27,11 +47,16 @@ export default function HomePage({
           <TitleHeading title={'Articles'} />
           <Box mb="5" />
 
-          <ArticleTagsRandom tags={articleTags} />
+          <ArticleTagsRandom tags={articleTags} setFilter={setFilter} />
           <Box mb="5" />
 
-          {articles?.length > 0 &&
-            articles.map((__article) => <ArticleCard key={__article.id} article={__article} />)}
+          {paginatedArticles.items?.length > 0 ? (
+            paginatedArticles.items.map((__article: IArticleBasic) => (
+              <ArticleCard key={__article.id} article={__article} />
+            ))
+          ) : (
+            <p>No data</p>
+          )}
         </CustomColumn>
         <CustomColumn base={12} md={4} position="relative">
           <MainRightSideBar user={__userMock} articleCategories={articleCategories} />
@@ -41,30 +66,34 @@ export default function HomePage({
   );
 }
 
+interface IFilter {
+  page?: number | string;
+  limit?: number | string;
+  category?: number | string;
+  tags?: number | string;
+  search?: string;
+}
+
 interface IHomePageProps {
-  articles: IArticleBasic[];
+  paginatedArticles: IPaginatiedArticles;
   articleTags: IArticleTagBasic[];
   articleCategories: IArticleCategoryBasic[];
 }
 
-export const getStaticProps: GetStaticProps<IHomePageProps> = async (context) => {
-  const articlesResponse = await fetch(`${API_ENDPOINT}/articles/?page=1&limit=10`);
-  const articleTagsResponse = await fetch(`${API_ENDPOINT}/articles/tags`);
-  const articleCategoriesponse = await fetch(`${API_ENDPOINT}/articles/categories`);
+export const getServerSideProps: GetServerSideProps<IHomePageProps> = async (context) => {
+  const { query } = context;
 
-  const articlesResult = await articlesResponse.json();
-  const articleTags: IArticleTagBasic[] = await articleTagsResponse.json();
-  const articleCategories: IArticleCategoryBasic[] = await articleCategoriesponse.json();
+  const paginatedArticles = (await axios.get(`${API_ENDPOINT}/articles`, { params: query })).data;
+  const articleTags: IArticleTagBasic[] = (await axios.get(`${API_ENDPOINT}/articles/tags`)).data;
+  const articleCategories: IArticleCategoryBasic[] = (
+    await axios.get(`${API_ENDPOINT}/articles/categories`)
+  ).data;
 
-  const articles: IArticleBasic[] = articlesResult.items;
   return {
     props: {
-      articles: articles.map((item) => ({
-        ...item,
-        slug: CommonUtil.makeSlug(item.title, item.id + '')
-      })),
-      articleTags,
-      articleCategories
+      paginatedArticles,
+      articleCategories: articleCategories,
+      articleTags: articleTags
     }
   };
 };

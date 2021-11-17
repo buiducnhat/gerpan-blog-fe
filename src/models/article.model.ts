@@ -18,3 +18,15 @@ export interface IArticleBasic {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IPaginatiedMeta {
+  itemCount: number;
+  totalItems: number;
+  itemsPerPage: number;
+  totalPages: number;
+  currentPage: number;
+}
+export interface IPaginatiedArticles {
+  items: IArticleBasic[];
+  meta: IPaginatiedMeta;
+}

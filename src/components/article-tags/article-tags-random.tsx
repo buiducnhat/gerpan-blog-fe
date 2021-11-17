@@ -1,14 +1,18 @@
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Flex, Tag, Icon, HStack, Text } from '@chakra-ui/react';
 import { ThemeTypings } from '@chakra-ui/styled-system';
-import { IArticleTagBasic } from '@src/models/article-tag.model';
 import { FaTags as TagsIcon } from 'react-icons/fa';
+
+import { IArticleTagBasic } from '@src/models/article-tag.model';
 
 export interface IArticleTagsRandomProps {
   tags: IArticleTagBasic[];
+  setFilter: Function;
 }
 
-export default function ArticleTagsRandom({ tags }: IArticleTagsRandomProps) {
+export default function ArticleTagsRandom({ tags, setFilter }: IArticleTagsRandomProps) {
+  const router = useRouter();
+
   const colorSchemes: ThemeTypings['colorSchemes'][] = [
     'blue',
     'cyan',
@@ -42,19 +46,19 @@ export default function ArticleTagsRandom({ tags }: IArticleTagsRandomProps) {
       </HStack>
 
       {tags.map((tag) => (
-        <Link key={tag.id} href="#" passHref>
-          <Tag
-            p="2"
-            m="0.5"
-            rounded="xl"
-            variant="solid"
-            colorScheme={getTagColor(tag.id)}
-            cursor="pointer"
-            sx={{ _hover: { shadow: 'xl' } }}
-          >
-            {tag.title}
-          </Tag>
-        </Link>
+        <Tag
+          key={tag.id}
+          onClick={() => router.push({ query: { tags: tag.id } })}
+          p="2"
+          m="0.5"
+          rounded="xl"
+          variant="solid"
+          colorScheme={getTagColor(tag.id)}
+          cursor="pointer"
+          sx={{ _hover: { shadow: 'xl' } }}
+        >
+          {tag.title}
+        </Tag>
       ))}
     </Flex>
   );
