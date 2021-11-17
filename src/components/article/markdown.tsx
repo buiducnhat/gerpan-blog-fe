@@ -29,7 +29,6 @@ import bash from 'react-syntax-highlighter/dist/cjs/languages/hljs/bash';
 import dockerfile from 'react-syntax-highlighter/dist/cjs/languages/hljs/dockerfile';
 import yaml from 'react-syntax-highlighter/dist/cjs/languages/hljs/yaml';
 import md from 'react-syntax-highlighter/dist/cjs/languages/hljs/markdown';
-import './markdown.module.css';
 
 SyntaxHighlighter.registerLanguage('html', html);
 SyntaxHighlighter.registerLanguage('css', css);
