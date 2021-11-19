@@ -1,6 +1,7 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { Box } from '@chakra-ui/react';
 import { ParsedUrlQuery } from 'querystring';
+import axios from 'axios';
 
 import { Meta } from '@src/layouts/meta';
 import { Main as MainTemplate } from '@src/templates/main';
@@ -11,7 +12,6 @@ import ArticleTableContent from '@src/components/article/article-table-content';
 import ArticlesSameAuthor from '@src/components/article/article-same-author';
 import { IArticleBasic } from '@src/models/article.model';
 import { API_ENDPOINT } from '@src/configs';
-import axios from 'axios';
 
 export default function ArticlePage({
   article,
