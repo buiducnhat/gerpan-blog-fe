@@ -23,10 +23,11 @@ export default function ArticleCategoryList({ categories }: IArticleCategoryList
               onClick={() => router.push({ query: { ...router.query, category: category.id } })}
             >
               <Box
-                as="a"
                 fontWeight="bold"
                 letterSpacing="tight"
                 textTransform="uppercase"
+                textAlign="center"
+                cursor="pointer"
                 _hover={{ color: 'primary.500' }}
               >
                 {category.title}
