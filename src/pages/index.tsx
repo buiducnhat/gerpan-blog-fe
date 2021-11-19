@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { Box } from '@chakra-ui/layout';
+import { Box, Heading } from '@chakra-ui/react';
 import axios from 'axios';
 
 import { Meta } from '@src/layouts/meta';
@@ -12,6 +12,7 @@ import { CustomRow, CustomColumn } from '@src/components/custom-grid';
 import ArticleTagsRandom from '@src/components/article-tags/article-tags-random';
 import TitleHeading from '@src/components/title-heading';
 import Paginator from '@src/components/paginator';
+import ArticleNoData from '@src/components/article/article-no-data';
 import { __userMock } from '@src/__mocks__/user.mock';
 import { IArticleBasic, IPaginatiedArticles } from '@src/models/article.model';
 import { IArticleTagBasic } from '@src/models/article-tag.model';
@@ -39,6 +40,9 @@ export default function HomePage(props: InferGetServerSidePropsType<typeof getSe
 
   return (
     <MainTemplate meta={<Meta title="Home | Gerpan Blog" description="Gerpan Blog" />}>
+      <Heading as="h1" hidden={true}>
+        {'Article'}
+      </Heading>
       <CustomRow>
         <CustomColumn base={12} md={8}>
           <TitleHeading title={'Articles'} />
@@ -60,7 +64,7 @@ export default function HomePage(props: InferGetServerSidePropsType<typeof getSe
               />
             </>
           ) : (
-            <p>No data</p>
+            <ArticleNoData />
           )}
         </CustomColumn>
         <CustomColumn base={12} md={4} position="relative">
