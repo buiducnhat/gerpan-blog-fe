@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
   Box,
   Image,
@@ -25,6 +26,7 @@ export interface IArticleCardProps {
 }
 
 export default function ArticleCard(props: IArticleCardProps) {
+  const router = useRouter();
   const { colorMode } = useColorMode();
 
   const { article } = props;
@@ -52,7 +54,16 @@ export default function ArticleCard(props: IArticleCardProps) {
       <Box p={5}>
         <HStack mb={3}>
           {article.tags.map((tag) => (
-            <Tag key={tag.id} colorScheme="teal">
+            <Tag
+              key={tag.id}
+              colorScheme="teal"
+              cursor="pointer"
+              onClick={() =>
+                router.push({
+                  query: { ...router.query, tags: tag.id }
+                })
+              }
+            >
               {tag.title}
             </Tag>
           ))}
@@ -65,19 +76,30 @@ export default function ArticleCard(props: IArticleCardProps) {
         </Link>
 
         <HStack mb={3}>
-          <Tag variant="subtle" colorScheme="purple" size="lg" cursor="pointer">
+          <Tag variant="subtle" colorScheme="purple" size="md" cursor="pointer" py="3">
             <TagLeftIcon boxSize="3" as={UserIcon}></TagLeftIcon>
             <TagLabel>
               {CommonUtil.getFullName(article.author.firstName, article.author.lastName)}
             </TagLabel>
           </Tag>
 
-          <Tag variant="subtle" colorScheme="purple" size="lg" cursor="pointer">
+          <Tag
+            variant="subtle"
+            colorScheme="purple"
+            size="md"
+            cursor="pointer"
+            py="3"
+            onClick={() =>
+              router.push({
+                query: { ...router.query, category: article.category.id }
+              })
+            }
+          >
             <TagLeftIcon boxSize="3" as={TagIcon}></TagLeftIcon>
             <TagLabel>{article.category.title}</TagLabel>
           </Tag>
 
-          <Tag variant="subtle" colorScheme="purple" size="lg">
+          <Tag variant="subtle" colorScheme="purple" size="md" py="3">
             <TagLeftIcon boxSize="3" as={CalendarIcon}></TagLeftIcon>
             <TagLabel>{format(new Date(article.createdAt), 'MMMM dd yyyy')}</TagLabel>
           </Tag>
