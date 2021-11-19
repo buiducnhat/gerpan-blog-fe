@@ -8,8 +8,6 @@ const securityHeaders = [
 ];
 
 module.exports = {
-  reactStrictMode: true,
-
   async headers() {
     return [
       {
