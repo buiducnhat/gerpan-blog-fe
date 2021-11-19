@@ -58,6 +58,7 @@ export default function ArticleCard(props: IArticleCardProps) {
               key={tag.id}
               colorScheme="teal"
               cursor="pointer"
+              _hover={{ opacity: 0.75 }}
               onClick={() =>
                 router.push({
                   query: { ...router.query, tags: tag.id }
@@ -69,14 +70,23 @@ export default function ArticleCard(props: IArticleCardProps) {
           ))}
         </HStack>
 
-        <Link href={`/articles/${article.slug}`} passHref>
-          <Heading as="h2" fontSize="4xl" mb={5} cursor="pointer">
-            {article.title}
-          </Heading>
-        </Link>
+        <Heading as="h2" fontSize="4xl" mb={5} cursor="pointer" _hover={{ color: 'purple.500' }}>
+          <Link href={`/articles/${article.slug}`} passHref>
+            <Box as="a" display="block">
+              {article.title}
+            </Box>
+          </Link>
+        </Heading>
 
         <HStack mb={3}>
-          <Tag variant="subtle" colorScheme="purple" size="md" cursor="pointer" py="3">
+          <Tag
+            variant="subtle"
+            colorScheme="purple"
+            size="md"
+            cursor="pointer"
+            py="3"
+            _hover={{ opacity: 0.8 }}
+          >
             <TagLeftIcon boxSize="3" as={UserIcon}></TagLeftIcon>
             <TagLabel>
               {CommonUtil.getFullName(article.author.firstName, article.author.lastName)}
@@ -89,6 +99,7 @@ export default function ArticleCard(props: IArticleCardProps) {
             size="md"
             cursor="pointer"
             py="3"
+            _hover={{ opacity: 0.8 }}
             onClick={() =>
               router.push({
                 query: { ...router.query, category: article.category.id }
