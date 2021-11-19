@@ -48,7 +48,7 @@ export default function ArticleTagsRandom({ tags }: IArticleTagsRandomProps) {
       {tags.map((tag) => (
         <Tag
           key={tag.id}
-          onClick={() => router.push({ query: { tags: tag.id } })}
+          onClick={() => router.push({ query: { ...router.query, tags: tag.id } })}
           p="2"
           m="0.5"
           rounded="xl"

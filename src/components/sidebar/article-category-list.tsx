@@ -20,7 +20,7 @@ export default function ArticleCategoryList({ categories }: IArticleCategoryList
           {categories.map((category) => (
             <ListItem
               key={category.id}
-              onClick={() => router.push({ query: { category: category.id } })}
+              onClick={() => router.push({ query: { ...router.query, category: category.id } })}
             >
               <Box
                 as="a"

@@ -11,6 +11,7 @@ import ArticleCard from '@src/components/article/article-card';
 import { CustomRow, CustomColumn } from '@src/components/custom-grid';
 import ArticleTagsRandom from '@src/components/article-tags/article-tags-random';
 import TitleHeading from '@src/components/title-heading';
+import Paginator from '@src/components/paginator';
 import { __userMock } from '@src/__mocks__/user.mock';
 import { IArticleBasic, IPaginatiedArticles } from '@src/models/article.model';
 import { IArticleTagBasic } from '@src/models/article-tag.model';
@@ -27,7 +28,6 @@ export default function HomePage(props: InferGetServerSidePropsType<typeof getSe
   );
 
   useEffect(() => {
-    console.log(router.query);
     setFilter(router.query);
   }, [router.query]);
 
@@ -48,9 +48,17 @@ export default function HomePage(props: InferGetServerSidePropsType<typeof getSe
           <Box mb="5" />
 
           {paginatedArticles.items?.length > 0 ? (
-            paginatedArticles.items.map((__article: IArticleBasic) => (
-              <ArticleCard key={__article.id} article={__article} />
-            ))
+            <>
+              {paginatedArticles.items.map((__article: IArticleBasic) => (
+                <ArticleCard key={__article.id} article={__article} />
+              ))}
+              <Paginator
+                page={paginatedArticles.meta.currentPage}
+                limit={paginatedArticles.meta.itemsPerPage}
+                total={paginatedArticles.meta.totalItems}
+                totalPages={paginatedArticles.meta.totalPages}
+              />
+            </>
           ) : (
             <p>No data</p>
           )}
