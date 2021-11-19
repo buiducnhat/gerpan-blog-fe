@@ -65,7 +65,7 @@ export default function ArticleCard(props: IArticleCardProps) {
                 })
               }
             >
-              {tag.title}
+              {`#${tag.title}`}
             </Tag>
           ))}
         </HStack>

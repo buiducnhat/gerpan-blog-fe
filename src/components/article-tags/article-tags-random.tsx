@@ -55,7 +55,7 @@ export default function ArticleTagsRandom({ tags }: IArticleTagsRandomProps) {
           variant="solid"
           colorScheme={getTagColor(tag.id)}
           cursor="pointer"
-          sx={{ _hover: { shadow: 'xl' } }}
+          _hover={{ opacity: 0.8 }}
         >
           {tag.title}
         </Tag>
