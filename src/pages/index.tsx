@@ -13,11 +13,11 @@ import ArticleTagsRandom from '@src/components/article-tags/article-tags-random'
 import TitleHeading from '@src/components/title-heading';
 import Paginator from '@src/components/paginator';
 import ArticleNoData from '@src/components/article/article-no-data';
-import { __userMock } from '@src/__mocks__/user.mock';
 import { IArticleBasic, IPaginatiedArticles } from '@src/models/article.model';
 import { IArticleTagBasic } from '@src/models/article-tag.model';
 import { IArticleCategoryBasic } from '@src/models/article-category.model';
 import { API_ENDPOINT, PUBLIC_API_ENDPOINT } from '@src/configs';
+import { IUserBasic } from '@src/models/user.model';
 
 export default function HomePage(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
@@ -68,7 +68,7 @@ export default function HomePage(props: InferGetServerSidePropsType<typeof getSe
           )}
         </CustomColumn>
         <CustomColumn base={12} md={4} position="relative">
-          <MainRightSideBar user={__userMock} articleCategories={articleCategories} />
+          <MainRightSideBar user={props.adminProfile} articleCategories={articleCategories} />
         </CustomColumn>
       </CustomRow>
     </MainTemplate>
@@ -84,6 +84,7 @@ interface IFilter {
 }
 
 interface IHomePageProps {
+  adminProfile: IUserBasic;
   paginatedArticles: IPaginatiedArticles;
   articleTags: IArticleTagBasic[];
   articleCategories: IArticleCategoryBasic[];
@@ -92,7 +93,10 @@ interface IHomePageProps {
 export const getServerSideProps: GetServerSideProps<IHomePageProps> = async (context) => {
   const { query } = context;
 
-  const paginatedArticles = (await axios.get(`${API_ENDPOINT}/articles`, { params: query })).data;
+  const adminProfile: IUserBasic = (await axios.get(`${API_ENDPOINT}/users/admin`)).data;
+  const paginatedArticles: IPaginatiedArticles = (
+    await axios.get(`${API_ENDPOINT}/articles`, { params: query })
+  ).data;
   const articleTags: IArticleTagBasic[] = (await axios.get(`${API_ENDPOINT}/articles/tags`)).data;
   const articleCategories: IArticleCategoryBasic[] = (
     await axios.get(`${API_ENDPOINT}/articles/categories`)
@@ -100,9 +104,10 @@ export const getServerSideProps: GetServerSideProps<IHomePageProps> = async (con
 
   return {
     props: {
+      adminProfile,
       paginatedArticles,
-      articleCategories: articleCategories,
-      articleTags: articleTags
+      articleCategories,
+      articleTags
     }
   };
 };

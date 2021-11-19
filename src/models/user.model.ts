@@ -3,5 +3,5 @@ export interface IUserBasic {
   firstName: string;
   lastName: string;
   avatar: string;
-  about?: string;
+  bio?: string;
 }

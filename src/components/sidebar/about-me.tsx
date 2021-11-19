@@ -19,7 +19,7 @@ export default function AboutMe({ user }: IAboutMeProps) {
       </Box>
 
       <Box px={5} fontSize="md" fontWeight="medium" as="span" textAlign="center" color="grayText">
-        {user.about}
+        {user.bio}
       </Box>
     </VStack>
   );
