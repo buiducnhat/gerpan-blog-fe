@@ -11,7 +11,8 @@ const theme = extendTheme({
   styles: {
     global: (props: any) => ({
       body: {
-        bg: mode('gray.100', 'gray.800')(props)
+        bg: mode('gray.100', 'gray.800')(props),
+        scrollBehavior: 'smooth'
       }
     })
   },

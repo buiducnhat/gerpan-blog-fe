@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Box, Text, List, ListItem, UnorderedList, useColorMode } from '@chakra-ui/react';
 
 import TitleHeading from '@src/components/title-heading';
@@ -47,19 +48,48 @@ const useHeadingsData = () => {
 };
 
 const HeadingLink = ({ title, id }: { title: string; id: string }) => {
+  const router = useRouter();
+
+  const { colorMode } = useColorMode();
+
+  let isHighlighted = false;
+  if (router.asPath.split('#').length) {
+    isHighlighted = router.asPath.split('#')[1] === id;
+  }
+
+  // useEffect(() => {
+  //   document.getElementById(id)?.scrollIntoView({
+  //     behavior: 'smooth'
+  //   });
+  // }, [id]);
+
   return (
-    <Text
-      cursor="pointer"
-      _hover={{ color: 'primary.500' }}
-      onClick={(e) => {
-        e.preventDefault();
-        document.getElementById(id)?.scrollIntoView({
-          behavior: 'smooth'
-        });
-      }}
-    >
-      {title}
-    </Text>
+    <Link href={`#${id}`} passHref>
+      <Text
+        as="a"
+        cursor="pointer"
+        color={
+          isHighlighted
+            ? colorMode === 'light'
+              ? 'purple.500'
+              : 'purple.200'
+            : colorMode === 'light'
+            ? 'blue.500'
+            : 'blue.200'
+        }
+        fontWeight={isHighlighted ? 'bold' : 'normal'}
+        _hover={{ color: colorMode === 'light' ? 'purple.500' : 'purple.200' }}
+        // onClick={(e) => {
+        //   e.preventDefault();
+        //   router.push({ hash: `#${id}` });
+        //   document.getElementById(id)?.scrollIntoView({
+        //     behavior: 'smooth'
+        //   });
+        // }}
+      >
+        {title}
+      </Text>
+    </Link>
   );
 };
 
@@ -81,15 +111,11 @@ export default function ArticleTableContent() {
         <UnorderedList spacing="2">
           {nestedHeadings.map((h2Heading) => (
             <ListItem key={h2Heading.id}>
-              <Link href={`#${h2Heading.id}`} passHref>
-                <HeadingLink title={h2Heading.title} id={h2Heading.id} />
-              </Link>
+              <HeadingLink title={h2Heading.title} id={h2Heading.id} />
               <List marginStart="5" spacing="1">
                 {h2Heading.children?.map((h3Heading) => (
                   <ListItem key={h3Heading.id}>
-                    <Link href={`#${h3Heading.id}`} passHref>
-                      <HeadingLink title={h3Heading.title} id={h3Heading.id} />
-                    </Link>
+                    <HeadingLink title={h3Heading.title} id={h3Heading.id} />
                   </ListItem>
                 ))}
               </List>
