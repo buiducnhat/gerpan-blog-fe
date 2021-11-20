@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { Box, Heading } from '@chakra-ui/react';
-import axios from 'axios';
+import axios, { AxiosRequestHeaders } from 'axios';
 
 import { Meta } from '@src/layouts/meta';
 import { Main as MainTemplate } from '@src/templates/main';
@@ -33,8 +33,17 @@ export default function HomePage(props: InferGetServerSidePropsType<typeof getSe
   }, [router.query]);
 
   useEffect(() => {
+    const headers: AxiosRequestHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+    };
+
     axios
-      .get(`${PUBLIC_API_ENDPOINT}/articles`, { params: filter })
+      .get(`${PUBLIC_API_ENDPOINT}/articles`, {
+        params: filter,
+        headers
+      })
       .then((res) => setPaginatedArticles(res.data));
   }, [filter]);
 
