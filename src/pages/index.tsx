@@ -37,12 +37,7 @@ export default function HomePage(props: InferGetServerSidePropsType<typeof getSe
       .get(`${PUBLIC_API_ENDPOINT}/articles`, {
         params: filter
       })
-      .then((res) => {
-        console.log(res);
-        setPaginatedArticles(res.data);
-      });
-
-    axios.get('https://www.boredapi.com/api/activity').then((res) => console.log(res.data));
+      .then((res) => setPaginatedArticles(res.data));
   }, [filter]);
 
   return (
