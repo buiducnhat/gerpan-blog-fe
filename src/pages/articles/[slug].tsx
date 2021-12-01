@@ -50,10 +50,10 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (
     if (CommonUtil.makeSlug(article.title, id) !== slug) {
       throw Error();
     }
-
+    console.log(`${API_ENDPOINT}/articles/${id}/related`);
     const sameAuthorArticles: IArticleBasic[] = (
-      await axios.get(`${API_ENDPOINT}/articles?limit=3`)
-    ).data.items;
+      await axios.get(`${API_ENDPOINT}/articles/${id}/related`)
+    ).data;
 
     return {
       props: {
