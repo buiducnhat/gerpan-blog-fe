@@ -18,7 +18,7 @@ export default function AboutMe({ user }: IAboutMeProps) {
         {CommonUtil.getFullName(user.firstName, user.lastName)}
       </Box>
 
-      <Box px={5} fontSize="md" fontWeight="medium" as="span" textAlign="center" color="grayText">
+      <Box px={10} fontSize="md" fontWeight="bold" as="span" textAlign="center" color="GrayText">
         {user.bio}
       </Box>
     </VStack>
