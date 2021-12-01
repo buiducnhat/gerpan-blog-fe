@@ -12,7 +12,7 @@ export default function ArticleCategoryList({ categories }: IArticleCategoryList
   const router = useRouter();
 
   return (
-    <Box>
+    <Box pb="5">
       <VStack>
         <TitleHeading title={'Categories'} />
 
@@ -23,12 +23,22 @@ export default function ArticleCategoryList({ categories }: IArticleCategoryList
               onClick={() => router.push({ query: { ...router.query, category: category.id } })}
             >
               <Box
+                as="h3"
+                rounded="xl"
                 fontWeight="bold"
                 letterSpacing="tight"
                 textTransform="uppercase"
                 textAlign="center"
                 cursor="pointer"
-                _hover={{ color: 'primary.500' }}
+                _hover={{
+                  transition: 'ease-in 0.15s',
+                  py: '1',
+                  px: '5',
+                  background: 'purple.500',
+                  color: 'white',
+                  fontSize: '1.2rem',
+                  letterSpacing: 'widest'
+                }}
               >
                 {category.title}
               </Box>
