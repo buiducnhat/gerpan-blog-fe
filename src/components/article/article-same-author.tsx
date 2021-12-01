@@ -1,9 +1,10 @@
 import NextLink from 'next/link';
-import { Box, Text, useColorMode, VStack, HStack, Button } from '@chakra-ui/react';
+import { Box, Text, useColorMode, VStack, HStack, Button, Spacer } from '@chakra-ui/react';
 import { FaBookmark as CategoryIcon } from 'react-icons/fa';
 
 import TitleHeading from '@src/components/title-heading';
 import { IArticleBasic } from '@src/models/article.model';
+import { useRouter } from 'next/router';
 
 export interface IArticleTableContentProps {
   content: string;
@@ -20,6 +21,7 @@ export interface IArticlesSameAuthorProps {
 }
 
 export default function ArticlesSameAuthor({ articles }: IArticlesSameAuthorProps) {
+  const router = useRouter();
   const { colorMode } = useColorMode();
 
   return (
@@ -41,17 +43,35 @@ export default function ArticlesSameAuthor({ articles }: IArticlesSameAuthorProp
               </Text>
             </NextLink>
 
-            <Box h="1" />
-
-            <Box h="1" />
+            <Spacer h="2" />
 
             <HStack flex="space-between">
-              <Button colorScheme="green" variant="outline" size="xs" leftIcon={<CategoryIcon />}>
+              <Button
+                colorScheme="green"
+                variant="outline"
+                size="xs"
+                leftIcon={<CategoryIcon />}
+                onClick={() =>
+                  router.push({ pathname: '/articles', query: { category: __article.category.id } })
+                }
+              >
                 {__article.category.title}
               </Button>
+
               <HStack>
                 {__article.tags.map((__tag) => (
-                  <Button key={__tag.id} variant="outline" colorScheme="blue" size="xs">
+                  <Button
+                    key={__tag.id}
+                    variant="outline"
+                    colorScheme="blue"
+                    size="xs"
+                    onClick={() =>
+                      router.push({
+                        pathname: '/articles',
+                        query: { tag: __tag.id }
+                      })
+                    }
+                  >
                     {__tag.title}
                   </Button>
                 ))}
