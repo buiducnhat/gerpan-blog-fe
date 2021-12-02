@@ -18,8 +18,9 @@ export default function TagWithHover({
   return (
     <Tag
       key={key || null}
+      rounded="xl"
       cursor="pointer"
-      _hover={{ backgroundColor: hoverBackground || 'pink.500', color: hoverColor || 'white' }}
+      _hover={{ backgroundColor: hoverBackground || 'purple.500', color: hoverColor || 'white' }}
       transition="ease-in-out .15s"
       onClick={onClick}
       {...rest}

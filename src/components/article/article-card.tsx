@@ -58,6 +58,7 @@ export default function ArticleCard(props: IArticleCardProps) {
             <TagWithHover
               key={tag.id}
               colorScheme="teal"
+              hoverBackground="teal.500"
               onClick={() =>
                 router.push({
                   query: { ...router.query, tags: tag.id }
@@ -85,26 +86,17 @@ export default function ArticleCard(props: IArticleCardProps) {
         </Heading>
 
         <HStack mb={3}>
-          <TagWithHover
-            variant="subtle"
-            colorScheme="purple"
-            size="md"
-            py="3"
-            _hover={{ backgroundColor: 'pink.500', color: 'white' }}
-          >
+          <TagWithHover colorScheme="purple" py="3">
             <TagLeftIcon boxSize="3" as={UserIcon} />
             <TagLabel>
               {CommonUtil.getFullName(article.author.firstName, article.author.lastName)}
             </TagLabel>
           </TagWithHover>
 
-          <Tag
-            variant="subtle"
-            colorScheme="purple"
-            size="md"
-            cursor="pointer"
+          <TagWithHover
+            colorScheme="blue"
+            hoverBackground="blue.500"
             py="3"
-            _hover={{ backgroundColor: 'pink.500', color: 'white' }}
             onClick={() =>
               router.push({
                 query: { ...router.query, category: article.category.id }
@@ -113,9 +105,9 @@ export default function ArticleCard(props: IArticleCardProps) {
           >
             <TagLeftIcon boxSize="3" as={TagIcon}></TagLeftIcon>
             <TagLabel>{article.category.title}</TagLabel>
-          </Tag>
+          </TagWithHover>
 
-          <Tag variant="subtle" colorScheme="purple" size="md" py="3">
+          <Tag colorScheme="gray" py="3" rounded="xl">
             <TagLeftIcon boxSize="3" as={CalendarIcon}></TagLeftIcon>
             <TagLabel>{format(new Date(article.createdAt), 'MMMM dd yyyy')}</TagLabel>
           </Tag>
