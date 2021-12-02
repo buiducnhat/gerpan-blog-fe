@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { Flex, Tag, Icon, HStack, Text } from '@chakra-ui/react';
+import { Flex, Icon, HStack, Text } from '@chakra-ui/react';
 import { ThemeTypings } from '@chakra-ui/styled-system';
 import { FaTags as TagsIcon } from 'react-icons/fa';
 
