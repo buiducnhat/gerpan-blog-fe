@@ -17,10 +17,10 @@ export default function TagWithHover({
 }: ITagWithHoverProps) {
   return (
     <Tag
-      key={key || null}
+      key={key || Math.random()}
       rounded="xl"
       cursor="pointer"
-      _hover={{ backgroundColor: hoverBackground || 'purple.500', color: hoverColor || 'white' }}
+      _hover={{ backgroundColor: hoverBackground || 'primary.500', color: hoverColor || 'white' }}
       transition="ease-in-out .15s"
       onClick={onClick}
       {...rest}
