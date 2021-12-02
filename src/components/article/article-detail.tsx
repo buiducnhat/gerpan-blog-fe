@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import {
   Box,
   Image,
@@ -28,6 +29,7 @@ export interface IArticleDetailProps {
 }
 
 export default function ArticleDetail(props: IArticleDetailProps) {
+  const router = useRouter();
   const { colorMode } = useColorMode();
 
   const { article } = props;
@@ -54,7 +56,16 @@ export default function ArticleDetail(props: IArticleDetailProps) {
 
         <HStack mb="5">
           {article.tags.map((tag) => (
-            <TagWithHover key={tag.id} colorScheme="orange" size="md">
+            <TagWithHover
+              key={tag.id}
+              colorScheme="orange"
+              onClick={() =>
+                router.push({
+                  pathname: '/articles',
+                  query: { tag: tag.id }
+                })
+              }
+            >
               <TagLeftIcon as={TagIcon}></TagLeftIcon>
               <TagLabel>{tag.title}</TagLabel>
             </TagWithHover>
@@ -77,7 +88,14 @@ export default function ArticleDetail(props: IArticleDetailProps) {
                 <TagLabel>{formatDate(new Date(article.createdAt), 'MMM, dd yyyy')}</TagLabel>
               </Tag>
 
-              <TagWithHover colorScheme="blue" size="lg" hoverBackground="blue.500">
+              <TagWithHover
+                colorScheme="blue"
+                size="lg"
+                hoverBackground="blue.500"
+                onClick={() =>
+                  router.push({ pathname: '/articles', query: { category: article.category.id } })
+                }
+              >
                 <TagLeftIcon as={CategoryIcon} />
                 <TagLabel>{article.category.title}</TagLabel>
               </TagWithHover>

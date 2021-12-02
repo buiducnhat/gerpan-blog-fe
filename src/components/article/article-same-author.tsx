@@ -1,10 +1,11 @@
 import NextLink from 'next/link';
-import { Box, Text, useColorMode, VStack, HStack, Button, Spacer } from '@chakra-ui/react';
-import { FaBookmark as CategoryIcon } from 'react-icons/fa';
+import { useRouter } from 'next/router';
+import { Box, useColorMode, VStack, HStack, Spacer, TagLabel, TagLeftIcon } from '@chakra-ui/react';
+import { FaBookmark as CategoryIcon, FaHashtag as TagIcon } from 'react-icons/fa';
 
 import TitleHeading from '@src/components/title-heading';
 import { IArticleBasic } from '@src/models/article.model';
-import { useRouter } from 'next/router';
+import TagWithHover from '@src/components/tag-with-hover';
 
 export interface IArticleTableContentProps {
   content: string;
@@ -38,33 +39,40 @@ export default function ArticlesSameAuthor({ articles }: IArticlesSameAuthorProp
             rounded="xl"
           >
             <NextLink href={__article.slug || '/404'} passHref>
-              <Text as={'a'} _hover={{ color: 'primary.500' }}>
+              <Box
+                mb="1"
+                as={'h3'}
+                cursor="pointer"
+                fontWeight="bold"
+                transition="ease-in-out .15s"
+                _hover={{ color: 'primary.500' }}
+              >
                 {__article.title}
-              </Text>
+              </Box>
             </NextLink>
 
             <Spacer h="2" />
 
             <HStack flex="space-between">
-              <Button
-                colorScheme="green"
+              <TagWithHover
+                colorScheme="blue"
+                hoverBackground="blue.500"
                 variant="outline"
-                size="xs"
-                leftIcon={<CategoryIcon />}
                 onClick={() =>
                   router.push({ pathname: '/articles', query: { category: __article.category.id } })
                 }
               >
-                {__article.category.title}
-              </Button>
+                <TagLeftIcon as={CategoryIcon}></TagLeftIcon>
+                <TagLabel>{__article.category.title}</TagLabel>
+              </TagWithHover>
 
               <HStack>
                 {__article.tags.map((__tag) => (
-                  <Button
+                  <TagWithHover
                     key={__tag.id}
+                    colorScheme="orange"
+                    hoverBackground="orange.500"
                     variant="outline"
-                    colorScheme="blue"
-                    size="xs"
                     onClick={() =>
                       router.push({
                         pathname: '/articles',
@@ -72,8 +80,9 @@ export default function ArticlesSameAuthor({ articles }: IArticlesSameAuthorProp
                       })
                     }
                   >
-                    {__tag.title}
-                  </Button>
+                    <TagLeftIcon as={TagIcon}></TagLeftIcon>
+                    <TagLabel>{__tag.title}</TagLabel>
+                  </TagWithHover>
                 ))}
               </HStack>
             </HStack>
