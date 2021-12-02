@@ -4,6 +4,7 @@ import { ThemeTypings } from '@chakra-ui/styled-system';
 import { FaTags as TagsIcon } from 'react-icons/fa';
 
 import { IArticleTagBasic } from '@src/models/article-tag.model';
+import TagWithHover from '@src/components/tag-with-hover';
 
 export interface IArticleTagsRandomProps {
   tags: IArticleTagBasic[];
@@ -46,7 +47,7 @@ export default function ArticleTagsRandom({ tags }: IArticleTagsRandomProps) {
       </HStack>
 
       {tags.map((tag) => (
-        <Tag
+        <TagWithHover
           key={tag.id}
           onClick={() => router.push({ query: { ...router.query, tags: tag.id } })}
           p="2"
@@ -54,11 +55,9 @@ export default function ArticleTagsRandom({ tags }: IArticleTagsRandomProps) {
           rounded="xl"
           variant="solid"
           colorScheme={getTagColor(tag.id)}
-          cursor="pointer"
-          _hover={{ opacity: 0.8 }}
         >
           {tag.title}
-        </Tag>
+        </TagWithHover>
       ))}
     </Flex>
   );

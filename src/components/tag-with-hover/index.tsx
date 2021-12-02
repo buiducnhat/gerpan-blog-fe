@@ -20,6 +20,7 @@ export default function TagWithHover({
       key={key || null}
       cursor="pointer"
       _hover={{ backgroundColor: hoverBackground || 'pink.500', color: hoverColor || 'white' }}
+      transition="ease-in-out .15s"
       onClick={onClick}
       {...rest}
     >
