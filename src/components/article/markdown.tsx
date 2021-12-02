@@ -56,8 +56,10 @@ interface IMarkdownProps {
   content: string;
 }
 
-const ButtonCopy = (props: { content: string }) => {
+const ButtonCopy = (props: { content: string; colorMode: 'light' | 'dark' }) => {
   const { hasCopied, onCopy } = useClipboard(props.content);
+  const color = props.colorMode === 'light' ? 'black' : 'pink';
+
   return (
     <IconButton
       aria-label="copy-code"
@@ -68,7 +70,10 @@ const ButtonCopy = (props: { content: string }) => {
         color: 'var(--chakra-colors-gray-500)',
         position: 'absolute',
         top: '1rem',
-        right: '1rem'
+        right: '1rem',
+        _hover: {
+          color
+        }
       }}
     />
   );
@@ -89,11 +94,11 @@ export default function Markdown({ content }: IMarkdownProps) {
       buttonWrapper.id = `copy-code-${index}`;
       block.appendChild(buttonWrapper);
       ReactDOM.render(
-        <ButtonCopy content={block.innerText} />,
+        <ButtonCopy content={block.innerText} colorMode={colorMode} />,
         document.getElementById(buttonWrapper.id)
       );
     });
-  }, []);
+  }, [colorMode]);
 
   return (
     <Box
@@ -122,7 +127,10 @@ export default function Markdown({ content }: IMarkdownProps) {
         },
         a: {
           fontsize: '1.25rem',
-          color: 'blue.400'
+          color: 'blue.400',
+          _hover: {
+            textDecoration: 'underline'
+          }
         },
         ol: {
           marginBlockEnd: '0.75rem',
