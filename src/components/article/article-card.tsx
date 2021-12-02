@@ -18,6 +18,7 @@ import {
 } from 'react-icons/fa';
 import { format } from 'date-fns';
 
+import TagWithHover from '@src/components/tag-with-hover';
 import { IArticleBasic } from '@src/models/article.model';
 import { CommonUtil } from '@src/utils/common.util';
 
@@ -54,11 +55,9 @@ export default function ArticleCard(props: IArticleCardProps) {
       <Box p={5}>
         <HStack mb={3}>
           {article.tags.map((tag) => (
-            <Tag
+            <TagWithHover
               key={tag.id}
               colorScheme="teal"
-              cursor="pointer"
-              _hover={{ opacity: 0.75 }}
               onClick={() =>
                 router.push({
                   query: { ...router.query, tags: tag.id }
@@ -66,11 +65,18 @@ export default function ArticleCard(props: IArticleCardProps) {
               }
             >
               {`#${tag.title}`}
-            </Tag>
+            </TagWithHover>
           ))}
         </HStack>
 
-        <Heading as="h2" fontSize="4xl" mb={5} cursor="pointer" _hover={{ color: 'purple.500' }}>
+        <Heading
+          as="h2"
+          fontSize="4xl"
+          mb={5}
+          cursor="pointer"
+          transition="ease-in-out .2s"
+          _hover={{ color: 'primary.500' }}
+        >
           <Link href={`/articles/${article.slug}`} passHref>
             <Box as="a" display="block">
               {article.title}
@@ -79,19 +85,18 @@ export default function ArticleCard(props: IArticleCardProps) {
         </Heading>
 
         <HStack mb={3}>
-          <Tag
+          <TagWithHover
             variant="subtle"
             colorScheme="purple"
             size="md"
-            cursor="pointer"
             py="3"
-            _hover={{ opacity: 0.8 }}
+            _hover={{ backgroundColor: 'pink.500', color: 'white' }}
           >
             <TagLeftIcon boxSize="3" as={UserIcon}></TagLeftIcon>
             <TagLabel>
               {CommonUtil.getFullName(article.author.firstName, article.author.lastName)}
             </TagLabel>
-          </Tag>
+          </TagWithHover>
 
           <Tag
             variant="subtle"
@@ -99,7 +104,7 @@ export default function ArticleCard(props: IArticleCardProps) {
             size="md"
             cursor="pointer"
             py="3"
-            _hover={{ opacity: 0.8 }}
+            _hover={{ backgroundColor: 'pink.500', color: 'white' }}
             onClick={() =>
               router.push({
                 query: { ...router.query, category: article.category.id }
