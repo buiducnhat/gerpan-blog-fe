@@ -1,4 +1,4 @@
-import Logo from '@src/components/logo';
+import { useState } from 'react';
 import {
   Flex,
   Container,
@@ -12,10 +12,17 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  FormControl,
+  Input,
+  InputGroup,
+  InputRightElement,
   useColorMode
 } from '@chakra-ui/react';
 import { MdMenu as MenuIcon } from 'react-icons/md';
-import { FaBell as NotificationIcon } from 'react-icons/fa';
+import { FaBell as NotificationIcon, FaSearch as SearchIcon } from 'react-icons/fa';
+import { useRouter } from 'next/router';
+
+import Logo from '@src/components/logo';
 import ToggleThemeButton from '@src/components/toggle-theme-button';
 
 interface IAdminHeaderProps {
@@ -25,6 +32,9 @@ interface IAdminHeaderProps {
 export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { colorMode } = useColorMode();
+  const router = useRouter();
+
+  const [search, setSearch] = useState<string>('');
 
   return (
     <Box
@@ -38,6 +48,26 @@ export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
       <Container maxW="container.xl" h="100%">
         <Flex as="nav" py="1" px={{ base: '0', md: '3' }} w="100%" align="center">
           <Logo />
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              router.push({ query: { ...router.query, search } });
+            }}
+          >
+            <FormControl px="5" w="md">
+              <InputGroup>
+                <Input
+                  placeholder={'Search for articles'}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                <InputRightElement>
+                  <SearchIcon color="GrayText" />
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+          </form>
+
           <Spacer />
 
           <Box>
