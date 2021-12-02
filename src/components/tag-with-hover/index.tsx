@@ -1,8 +1,6 @@
-import { Key } from 'react';
 import { Tag, TagProps } from '@chakra-ui/react';
 
 export interface ITagWithHoverProps extends TagProps {
-  key?: Key | string | number;
   hoverBackground?: string;
   hoverColor?: string;
 }
@@ -17,7 +15,7 @@ export default function TagWithHover({
 }: ITagWithHoverProps) {
   return (
     <Tag
-      key={key || Math.random()}
+      key={key}
       rounded="xl"
       cursor="pointer"
       _hover={{ backgroundColor: hoverBackground || 'primary.500', color: hoverColor || 'white' }}

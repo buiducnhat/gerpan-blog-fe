@@ -24,6 +24,7 @@ import { useRouter } from 'next/router';
 
 import Logo from '@src/components/logo';
 import ToggleThemeButton from '@src/components/toggle-theme-button';
+import LoginModal from '@src/components/auth-form/login-modal';
 
 interface IAdminHeaderProps {
   setOpenDrawer: any;
@@ -35,81 +36,87 @@ export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
   const router = useRouter();
 
   const [search, setSearch] = useState<string>('');
+  const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
 
   return (
-    <Box
-      w="100%"
-      h="12"
-      pos="sticky"
-      top="0"
-      zIndex="banner"
-      bg={colorMode === 'light' ? 'white' : 'gray.900'}
-    >
-      <Container maxW="container.xl" h="100%">
-        <Flex as="nav" py="1" px={{ base: '0', md: '3' }} w="100%" align="center">
-          <Logo />
+    <>
+      <LoginModal isOpen={openLoginModal} setIsOpen={setOpenLoginModal} />
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              router.push({ query: { ...router.query, search } });
-            }}
-          >
-            <FormControl px="5" w="md">
-              <InputGroup>
-                <Input
-                  placeholder={'Search for articles'}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-                <InputRightElement>
-                  <SearchIcon color="GrayText" />
-                </InputRightElement>
-              </InputGroup>
-            </FormControl>
-          </form>
+      <Box
+        w="100%"
+        h="12"
+        pos="sticky"
+        top="0"
+        zIndex="banner"
+        bg={colorMode === 'light' ? 'white' : 'gray.900'}
+      >
+        <Container maxW="container.xl" h="100%">
+          <Flex as="nav" py="1" px={{ base: '0', md: '3' }} w="100%" align="center">
+            <Logo />
 
-          <Spacer />
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                router.push({ query: { ...router.query, search } });
+              }}
+            >
+              <FormControl px="5" w="md">
+                <InputGroup>
+                  <Input
+                    placeholder={'Search for articles'}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                  <InputRightElement>
+                    <SearchIcon color="GrayText" />
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+            </form>
 
-          <Box>
-            <Stack direction="row" spacing={4}>
-              <ToggleThemeButton />
+            <Spacer />
 
-              <IconButton
-                aria-label="menu-icon"
-                variant="ghost"
-                rounded="xl"
-                size="md"
-                fontSize="lg"
-                color="primary.500"
-                icon={<NotificationIcon />}
-              />
-              <Menu>
-                <MenuButton>
-                  <Avatar size="sm" src={''} />
-                </MenuButton>
-                <MenuList>
-                  <MenuItem>Profile</MenuItem>
-                  <MenuItem onClick={() => alert('Logout!')}>Logout</MenuItem>
-                </MenuList>
-              </Menu>
+            <Box>
+              <Stack direction="row" spacing={4}>
+                <ToggleThemeButton />
 
-              {isMobile && (
                 <IconButton
                   aria-label="menu-icon"
                   variant="ghost"
-                  color="GrayText"
+                  rounded="xl"
                   size="md"
                   fontSize="lg"
-                  _focus={{ border: 'none' }}
-                  _hover={{ background: 'transparent' }}
-                  icon={<MenuIcon />}
-                  onClick={() => setOpenDrawer(true)}
+                  color="primary.500"
+                  icon={<NotificationIcon />}
+                  onClick={() => setOpenLoginModal(true)}
                 />
-              )}
-            </Stack>
-          </Box>
-        </Flex>
-      </Container>
-    </Box>
+                <Menu>
+                  <MenuButton>
+                    <Avatar size="sm" src={''} />
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem>Profile</MenuItem>
+                    <MenuItem onClick={() => alert('Logout!')}>Logout</MenuItem>
+                  </MenuList>
+                </Menu>
+
+                {isMobile && (
+                  <IconButton
+                    aria-label="menu-icon"
+                    variant="ghost"
+                    color="GrayText"
+                    size="md"
+                    fontSize="lg"
+                    _focus={{ border: 'none' }}
+                    _hover={{ background: 'transparent' }}
+                    icon={<MenuIcon />}
+                    onClick={() => setOpenDrawer(true)}
+                  />
+                )}
+              </Stack>
+            </Box>
+          </Flex>
+        </Container>
+      </Box>
+    </>
   );
 }
