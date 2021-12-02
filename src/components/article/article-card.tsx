@@ -92,7 +92,7 @@ export default function ArticleCard(props: IArticleCardProps) {
             py="3"
             _hover={{ backgroundColor: 'pink.500', color: 'white' }}
           >
-            <TagLeftIcon boxSize="3" as={UserIcon}></TagLeftIcon>
+            <TagLeftIcon boxSize="3" as={UserIcon} />
             <TagLabel>
               {CommonUtil.getFullName(article.author.firstName, article.author.lastName)}
             </TagLabel>

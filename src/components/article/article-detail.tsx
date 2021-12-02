@@ -8,14 +8,22 @@ import {
   Avatar,
   VStack,
   Divider,
-  useColorMode
+  useColorMode,
+  TagLeftIcon,
+  TagLabel,
+  Tag
 } from '@chakra-ui/react';
-import { FaCalendarAlt as CalendarIcon, FaBookmark as CategoryIcon } from 'react-icons/fa';
+import {
+  FaCalendarAlt as CalendarIcon,
+  FaBookmark as CategoryIcon,
+  FaHashtag as TagIcon
+} from 'react-icons/fa';
 import { format as formatDate } from 'date-fns';
 
 import Markdown from './markdown';
 import { IArticleBasic } from '@src/models/article.model';
 import { CommonUtil } from '@src/utils/common.util';
+import TagWithHover from '@src/components/tag-with-hover';
 
 export interface IArticleDetailProps {
   article: IArticleBasic;
@@ -48,29 +56,33 @@ export default function ArticleDetail(props: IArticleDetailProps) {
 
         <HStack mb="5">
           {article.tags.map((tag) => (
-            <Button key={tag.id} variant="outline" colorScheme="blue" size="xs">
-              {tag.title}
-            </Button>
+            <TagWithHover key={tag.id} colorScheme="orange" size="md">
+              <TagLeftIcon as={TagIcon}></TagLeftIcon>
+              <TagLabel>{tag.title}</TagLabel>
+            </TagWithHover>
           ))}
         </HStack>
 
-        <HStack mb={5}>
-          <Avatar src={article.author.avatar} size="md" />
+        <HStack mb={5} spacing="3">
+          <Avatar src={article.author.avatar} size="lg" />
 
           <VStack align="flex-start">
-            <Text color="primary.500" fontWeight="black" fontSize="16">
-              {CommonUtil.getFullName(article.author.firstName, article.author.lastName)}
-            </Text>
+            <TagWithHover colorScheme="teal" size="lg" hoverBackground="teal.500">
+              <TagLabel>
+                {CommonUtil.getFullName(article.author.firstName, article.author.lastName)}
+              </TagLabel>
+            </TagWithHover>
 
             <HStack spacing="3">
-              <HStack color="GrayText">
-                <CalendarIcon fontSize="sm" />
-                <Text>{formatDate(new Date(article.createdAt), 'MMM, dd yyyy')}</Text>
-              </HStack>
+              <Tag colorScheme="gray" size="lg">
+                <TagLeftIcon as={CalendarIcon} />
+                <TagLabel>{formatDate(new Date(article.createdAt), 'MMM, dd yyyy')}</TagLabel>
+              </Tag>
 
-              <Button colorScheme="green" variant="outline" size="xs" leftIcon={<CategoryIcon />}>
-                {article.category.title}
-              </Button>
+              <TagWithHover colorScheme="blue" size="lg" hoverBackground="blue.500">
+                <TagLeftIcon as={CategoryIcon} />
+                <TagLabel>{article.category.title}</TagLabel>
+              </TagWithHover>
             </HStack>
           </VStack>
         </HStack>
