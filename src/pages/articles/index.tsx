@@ -18,10 +18,9 @@ import { IArticleTagBasic } from '@src/models/article-tag.model';
 import { IArticleCategoryBasic } from '@src/models/article-category.model';
 import { API_ENDPOINT, PUBLIC_API_ENDPOINT } from '@src/configs';
 import { IUserBasic } from '@src/models/user.model';
+import { DEFAULT_ARTICLE_LIMIT } from '@src/configs/constants';
 
-export default function ArticlesPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
-) {
+export default function ArticlesPage(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
 
   const { articleTags, articleCategories } = props;
@@ -36,12 +35,14 @@ export default function ArticlesPage(
 
   useEffect(() => {
     axios
-      .get(`${PUBLIC_API_ENDPOINT}/articles`, { params: filter })
+      .get(`${PUBLIC_API_ENDPOINT}/articles`, {
+        params: { limit: DEFAULT_ARTICLE_LIMIT, ...filter }
+      })
       .then((res) => setPaginatedArticles(res.data));
   }, [filter]);
 
   return (
-    <MainTemplate meta={<Meta title="Home | Gerpan Blog" description="Gerpan Blog" />}>
+    <MainTemplate meta={<Meta title="Articles | Gerpan Blog" description="Gerpan Blog" />}>
       <Heading as="h1" hidden={true}>
         {'Article'}
       </Heading>
@@ -85,19 +86,21 @@ interface IFilter {
   search?: string;
 }
 
-interface IHomePageProps {
+interface IArticlePageProps {
   adminProfile: IUserBasic;
   paginatedArticles: IPaginatiedArticles;
   articleTags: IArticleTagBasic[];
   articleCategories: IArticleCategoryBasic[];
 }
 
-export const getServerSideProps: GetServerSideProps<IHomePageProps> = async (context) => {
+export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (context) => {
   const { query } = context;
 
   const adminProfile: IUserBasic = (await axios.get(`${API_ENDPOINT}/users/admin`)).data;
   const paginatedArticles: IPaginatiedArticles = (
-    await axios.get(`${API_ENDPOINT}/articles`, { params: query })
+    await axios.get(`${API_ENDPOINT}/articles`, {
+      params: { limit: DEFAULT_ARTICLE_LIMIT, ...query }
+    })
   ).data;
   const articleTags: IArticleTagBasic[] = (await axios.get(`${API_ENDPOINT}/articles/tags`)).data;
   const articleCategories: IArticleCategoryBasic[] = (

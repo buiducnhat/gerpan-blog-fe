@@ -18,6 +18,7 @@ import { IArticleTagBasic } from '@src/models/article-tag.model';
 import { IArticleCategoryBasic } from '@src/models/article-category.model';
 import { API_ENDPOINT, PUBLIC_API_ENDPOINT } from '@src/configs';
 import { IUserBasic } from '@src/models/user.model';
+import { DEFAULT_ARTICLE_LIMIT } from '@src/configs/constants';
 
 export default function HomePage(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
@@ -35,7 +36,7 @@ export default function HomePage(props: InferGetServerSidePropsType<typeof getSe
   useEffect(() => {
     axios
       .get(`${PUBLIC_API_ENDPOINT}/articles`, {
-        params: filter
+        params: { limit: DEFAULT_ARTICLE_LIMIT, ...filter }
       })
       .then((res) => setPaginatedArticles(res.data));
   }, [filter]);
@@ -97,7 +98,9 @@ export const getServerSideProps: GetServerSideProps<IHomePageProps> = async (con
 
   const adminProfile: IUserBasic = (await axios.get(`${API_ENDPOINT}/users/admin`)).data;
   const paginatedArticles: IPaginatiedArticles = (
-    await axios.get(`${API_ENDPOINT}/articles`, { params: query })
+    await axios.get(`${API_ENDPOINT}/articles`, {
+      params: { limit: DEFAULT_ARTICLE_LIMIT, ...query }
+    })
   ).data;
   const articleTags: IArticleTagBasic[] = (await axios.get(`${API_ENDPOINT}/articles/tags`)).data;
   const articleCategories: IArticleCategoryBasic[] = (

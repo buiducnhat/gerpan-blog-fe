@@ -30,8 +30,8 @@ export default function ArticleCategoryList({ categories }: IArticleCategoryList
                 textTransform="uppercase"
                 textAlign="center"
                 cursor="pointer"
+                transition="ease-in-out .2s"
                 _hover={{
-                  transition: 'ease-in 0.15s',
                   py: '1',
                   px: '5',
                   background: 'purple.500',
