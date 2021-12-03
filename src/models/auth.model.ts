@@ -3,6 +3,7 @@ import { IUserBasic } from './user.model';
 export interface LoginDto {
   email: string;
   password: string;
+  remember?: boolean;
 }
 
 export interface RegisterDto {

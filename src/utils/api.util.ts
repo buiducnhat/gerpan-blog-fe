@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders, Method } from 'axios';
+import axios, { AxiosPromise, AxiosRequestConfig, AxiosRequestHeaders, Method } from 'axios';
 
 interface ICallApi {
   url: string;
@@ -8,7 +8,7 @@ interface ICallApi {
   data?: any;
 }
 
-export function callApi<Type>(config: ICallApi): Promise<Type> {
+export function callApi<Type>(config: ICallApi): AxiosPromise<Type> {
   const { url, method, data, params, token } = config;
 
   const axiosConfig: AxiosRequestConfig = {
@@ -24,5 +24,5 @@ export function callApi<Type>(config: ICallApi): Promise<Type> {
     axiosConfig.headers = headers;
   }
 
-  return axios(axiosConfig) as unknown as Promise<Type>;
+  return axios(axiosConfig) as AxiosPromise<Type>;
 }

@@ -1,5 +1,5 @@
 import { LoginDto, AuthResponseDto, RegisterDto } from '@src/models/auth.model';
-
+import { IUserBasic } from '@src/models/user.model';
 import { callApi } from '@src/utils/api.util';
 import { getToken } from '@src/utils/token.util';
 
@@ -21,7 +21,7 @@ export const apiRegister = async (registerDto: RegisterDto) => {
 
 export const apiMe = async () => {
   const token = getToken();
-  return await callApi<AuthResponseDto>({
+  return await callApi<IUserBasic>({
     url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/me`,
     method: 'GET',
     token

@@ -25,6 +25,7 @@ import { useRouter } from 'next/router';
 import Logo from '@src/components/logo';
 import ToggleThemeButton from '@src/components/toggle-theme-button';
 import LoginModal from '@src/components/auth-form/login-modal';
+import { useGetMe } from '@src/hooks/auth.hook';
 
 interface IAdminHeaderProps {
   setOpenDrawer: any;
@@ -34,6 +35,8 @@ export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { colorMode } = useColorMode();
   const router = useRouter();
+
+  const { isAuth, userInfo } = useGetMe();
 
   const [search, setSearch] = useState<string>('');
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
