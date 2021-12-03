@@ -16,27 +16,36 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Button,
   useColorMode
 } from '@chakra-ui/react';
 import { MdMenu as MenuIcon } from 'react-icons/md';
-import { FaBell as NotificationIcon, FaSearch as SearchIcon } from 'react-icons/fa';
+import {
+  FaSearch as SearchIcon,
+  FaUser as UserIcon,
+  FaSignOutAlt as LogoutIcon
+} from 'react-icons/fa';
 import { useRouter } from 'next/router';
 
 import Logo from '@src/components/logo';
 import ToggleThemeButton from '@src/components/toggle-theme-button';
 import LoginModal from '@src/components/auth-form/login-modal';
 import { useGetMe } from '@src/hooks/auth.hook';
+import { useAppDispatch } from '@src/hooks/redux.hook';
+import { logout } from '@src/redux/auth/auth.slice';
 
 interface IAdminHeaderProps {
   setOpenDrawer: any;
 }
 
 export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
+  const dispatch = useAppDispatch();
+
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { colorMode } = useColorMode();
   const router = useRouter();
 
-  const { isAuth, userInfo } = useGetMe();
+  const { isAuth, user } = useGetMe();
 
   const [search, setSearch] = useState<string>('');
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
@@ -79,28 +88,29 @@ export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
             <Spacer />
 
             <Box>
-              <Stack direction="row" spacing={4}>
+              <Stack direction="row" spacing="8">
                 <ToggleThemeButton />
-
-                <IconButton
-                  aria-label="menu-icon"
-                  variant="ghost"
-                  rounded="xl"
-                  size="md"
-                  fontSize="lg"
-                  color="primary.500"
-                  icon={<NotificationIcon />}
-                  onClick={() => setOpenLoginModal(true)}
-                />
-                <Menu>
-                  <MenuButton>
-                    <Avatar size="sm" src={''} />
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem>Profile</MenuItem>
-                    <MenuItem onClick={() => alert('Logout!')}>Logout</MenuItem>
-                  </MenuList>
-                </Menu>
+                {isAuth && !!user ? (
+                  <Menu placement="bottom-start">
+                    <MenuButton>
+                      <Avatar size="sm" src={user.avatar} />
+                    </MenuButton>
+                    <MenuList>
+                      <MenuItem icon={<UserIcon />}>{'My profile'}</MenuItem>
+                      <MenuItem icon={<LogoutIcon />} onClick={() => dispatch(logout())}>
+                        {'Log out'}
+                      </MenuItem>
+                    </MenuList>
+                  </Menu>
+                ) : (
+                  <Button
+                    variant="link"
+                    colorScheme="purple"
+                    onClick={() => setOpenLoginModal(true)}
+                  >
+                    {'Login'}
+                  </Button>
+                )}
 
                 {isMobile && (
                   <IconButton

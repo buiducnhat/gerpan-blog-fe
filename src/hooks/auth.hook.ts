@@ -6,17 +6,17 @@ import { getToken } from '@src/utils/token.util';
 import { selectIsAuth, selectUser, fetchGetMe } from '@src/redux/auth/auth.slice';
 import { IUserBasic } from '@src/models/user.model';
 
-export const useGetMe = (): { isAuth: boolean; userInfo: IUserBasic | null } => {
+export const useGetMe = (): { isAuth: boolean; user: IUserBasic | null } => {
   const dispatch = useAppDispatch();
 
   const isAuth = useAppSelector(selectIsAuth);
-  const userInfo = useAppSelector(selectUser);
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
-    !isAuth && !userInfo && dispatch(fetchGetMe());
-  }, [dispatch, isAuth, userInfo]);
+    !isAuth && !user && dispatch(fetchGetMe());
+  }, [dispatch, isAuth, user]);
 
-  return { isAuth, userInfo };
+  return { isAuth, user };
 };
 
 // export const useRequireAuth = (preUrl: string) => {
