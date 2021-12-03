@@ -5,6 +5,14 @@ export interface LoginDto {
   password: string;
 }
 
+export interface RegisterDto {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  phone?: string;
+}
+
 export interface AuthResponseDto {
   token: string;
   user: IUserBasic;
