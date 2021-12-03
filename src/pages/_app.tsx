@@ -3,12 +3,15 @@ import { ChakraProvider } from '@chakra-ui/react';
 import '@fontsource/noto-sans-display';
 
 import theme from '@src/theme';
+import { AppContext } from '@src/context';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <AppContext.Provider value={{ user: null }}>
+      <ChakraProvider theme={theme}>
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </AppContext.Provider>
   );
 };
 
