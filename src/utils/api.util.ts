@@ -3,13 +3,14 @@ import axios, { AxiosPromise, AxiosRequestConfig, AxiosRequestHeaders, Method } 
 interface ICallApi {
   url: string;
   params?: any;
-  method: Method;
+  method?: Method;
   token?: string;
   data?: any;
 }
 
 export function callApi<Type>(config: ICallApi): AxiosPromise<Type> {
-  const { url, method, data, params, token } = config;
+  let { url, method, data, params, token } = config;
+  method = method || 'GET';
 
   const axiosConfig: AxiosRequestConfig = {
     url,
