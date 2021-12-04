@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { Box, Heading } from '@chakra-ui/react';
-import axios from 'axios';
 
 import { Meta } from '@src/layouts/meta';
 import { Main as MainTemplate } from '@src/templates/main';

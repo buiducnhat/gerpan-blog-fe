@@ -1,7 +1,6 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { Box } from '@chakra-ui/react';
 import { ParsedUrlQuery } from 'querystring';
-import axios from 'axios';
 
 import { Meta } from '@src/layouts/meta';
 import { Main as MainTemplate } from '@src/templates/main';
