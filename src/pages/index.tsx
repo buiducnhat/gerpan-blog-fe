@@ -19,6 +19,8 @@ import { IArticleCategoryBasic } from '@src/models/article-category.model';
 import { API_ENDPOINT, PUBLIC_API_ENDPOINT } from '@src/configs';
 import { IUserBasic } from '@src/models/user.model';
 import { DEFAULT_ARTICLE_LIMIT } from '@src/configs/constants';
+import { callApi } from '@src/utils/api.util';
+import { getToken } from '@src/utils/token.util';
 
 export default function HomePage(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
@@ -34,11 +36,11 @@ export default function HomePage(props: InferGetServerSidePropsType<typeof getSe
   }, [router.query]);
 
   useEffect(() => {
-    axios
-      .get(`${PUBLIC_API_ENDPOINT}/articles`, {
-        params: { limit: DEFAULT_ARTICLE_LIMIT, ...filter }
-      })
-      .then((res) => setPaginatedArticles(res.data));
+    callApi<IPaginatiedArticles>({
+      url: `${PUBLIC_API_ENDPOINT}/articles`,
+      params: { limit: DEFAULT_ARTICLE_LIMIT, ...filter },
+      token: getToken()
+    }).then((res) => setPaginatedArticles(res.data));
   }, [filter]);
 
   return (
@@ -95,16 +97,20 @@ interface IHomePageProps {
 
 export const getServerSideProps: GetServerSideProps<IHomePageProps> = async (context) => {
   const { query } = context;
+  const { token } = context.req.cookies;
 
-  const adminProfile: IUserBasic = (await axios.get(`${API_ENDPOINT}/users/admin`)).data;
-  const paginatedArticles: IPaginatiedArticles = (
-    await axios.get(`${API_ENDPOINT}/articles`, {
-      params: { limit: DEFAULT_ARTICLE_LIMIT, ...query }
+  const adminProfile = (await callApi<IUserBasic>({ url: `${API_ENDPOINT}/users/admin` })).data;
+  const paginatedArticles = (
+    await callApi<IPaginatiedArticles>({
+      url: `${API_ENDPOINT}/articles`,
+      params: { limit: DEFAULT_ARTICLE_LIMIT, ...query },
+      token
     })
   ).data;
-  const articleTags: IArticleTagBasic[] = (await axios.get(`${API_ENDPOINT}/articles/tags`)).data;
-  const articleCategories: IArticleCategoryBasic[] = (
-    await axios.get(`${API_ENDPOINT}/articles/categories`)
+  const articleTags = (await callApi<IArticleBasic[]>({ url: `${API_ENDPOINT}/articles/tags` }))
+    .data;
+  const articleCategories = (
+    await callApi<IArticleCategoryBasic[]>({ url: `${API_ENDPOINT}/articles/categories` })
   ).data;
 
   return {

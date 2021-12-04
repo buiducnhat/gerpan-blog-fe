@@ -12,6 +12,7 @@ import ArticleTableContent from '@src/components/article/article-table-content';
 import ArticlesSameAuthor from '@src/components/article/article-same-author';
 import { IArticleBasic } from '@src/models/article.model';
 import { API_ENDPOINT } from '@src/configs';
+import { callApi } from '@src/utils/api.util';
 
 export default function ArticlePage({
   article,
@@ -44,14 +45,16 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (
   const params = context.params;
   const { slug } = params as ParsedUrlQuery;
   const id = CommonUtil.getIdFromSlug(slug as string);
+  const { token } = context.req.cookies;
 
   try {
-    const article: IArticleBasic = (await axios.get(`${API_ENDPOINT}/articles/${id}`)).data;
+    const article = (await callApi<IArticleBasic>({ url: `${API_ENDPOINT}/articles/${id}`, token }))
+      .data;
     if (CommonUtil.makeSlug(article.title, id) !== slug) {
       throw Error();
     }
-    const sameAuthorArticles: IArticleBasic[] = (
-      await axios.get(`${API_ENDPOINT}/articles/${id}/related`)
+    const sameAuthorArticles = (
+      await callApi<IArticleBasic[]>({ url: `${API_ENDPOINT}/articles/${id}/related`, token })
     ).data;
 
     return {
