@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { Button, HStack, Center, IconButton } from '@chakra-ui/react';
+import { Button, HStack, Center, IconButton, useColorMode } from '@chakra-ui/react';
 import { FaAngleLeft as LeftIcon, FaAngleRight as RightIcon } from 'react-icons/fa';
 
 export interface IPaginatorProps {
@@ -11,6 +11,7 @@ export interface IPaginatorProps {
 
 export default function Paginator({ page, limit, total, totalPages }: IPaginatorProps) {
   const router = useRouter();
+  const { colorMode } = useColorMode();
 
   const routerToPage = (newPage: number) => {
     router.push({ query: { ...router.query, page: newPage } });
@@ -40,7 +41,9 @@ export default function Paginator({ page, limit, total, totalPages }: IPaginator
             <Button
               key={curPage}
               variant={page === curPage ? 'solid' : 'outline'}
-              colorScheme={page === curPage ? 'purple' : 'gray'}
+              colorScheme={
+                page === curPage ? 'purple' : colorMode === 'light' ? 'blackAlpha' : 'gray'
+              }
               onClick={() => routerToPage(curPage)}
             >
               {curPage}
