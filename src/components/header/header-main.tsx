@@ -16,6 +16,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  HStack,
   Button,
   useColorMode
 } from '@chakra-ui/react';
@@ -30,6 +31,7 @@ import { useRouter } from 'next/router';
 import Logo from '@src/components/logo';
 import ToggleThemeButton from '@src/components/toggle-theme-button';
 import LoginModal from '@src/components/auth-form/login-modal';
+import RegisterModal from '@src/components/auth-form/register-modal';
 import { useGetMe } from '@src/hooks/auth.hook';
 import { useAppDispatch } from '@src/hooks/redux.hook';
 import { logout } from '@src/redux/auth/auth.slice';
@@ -49,10 +51,12 @@ export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
 
   const [search, setSearch] = useState<string>('');
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
+  const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
 
   return (
     <>
       <LoginModal isOpen={openLoginModal} setIsOpen={setOpenLoginModal} />
+      <RegisterModal isOpen={openRegisterModal} setIsOpen={setOpenRegisterModal} />
 
       <Box
         w="100%"
@@ -103,13 +107,22 @@ export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
                     </MenuList>
                   </Menu>
                 ) : (
-                  <Button
-                    variant="link"
-                    colorScheme="purple"
-                    onClick={() => setOpenLoginModal(true)}
-                  >
-                    {'Login'}
-                  </Button>
+                  <HStack spacing="5">
+                    <Button
+                      variant="ghost"
+                      colorScheme="purple"
+                      onClick={() => setOpenLoginModal(true)}
+                    >
+                      {'Login'}
+                    </Button>
+                    <Button
+                      variant="solid"
+                      colorScheme="purple"
+                      onClick={() => setOpenRegisterModal(true)}
+                    >
+                      {'Create an account'}
+                    </Button>
+                  </HStack>
                 )}
 
                 {isMobile && (

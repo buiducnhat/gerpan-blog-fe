@@ -14,6 +14,10 @@ export interface RegisterDto {
   phone?: string;
 }
 
+export interface InputRegisterDto extends RegisterDto {
+  rePassword: string;
+}
+
 export interface AuthResponseDto {
   token: string;
   user: IUserBasic;

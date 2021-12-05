@@ -21,7 +21,9 @@ import { DEFAULT_ARTICLE_LIMIT } from '@src/configs/constants';
 import { callApi } from '@src/utils/api.util';
 import { getToken } from '@src/utils/token.util';
 
-export default function ArticlesPage(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function ArticlesPage(
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
   const router = useRouter();
 
   const { articleTags, articleCategories } = props;

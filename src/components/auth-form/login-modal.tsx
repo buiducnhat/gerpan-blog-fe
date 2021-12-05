@@ -21,7 +21,7 @@ import { useAppDispatch, useAppSelector } from '@src/hooks/redux.hook';
 import { LoginDto } from '@src/models/auth.model';
 import { fetchLogin } from '@src/redux/auth/auth.slice';
 
-export interface ILoginModals {
+export interface ILoginModalProps {
   isOpen: boolean;
   setIsOpen: Function;
 }
@@ -34,7 +34,7 @@ const schema = yup
   })
   .required();
 
-export default function LoginModal(props: ILoginModals) {
+export default function LoginModal(props: ILoginModalProps) {
   const { isOpen, setIsOpen } = props;
 
   // redux
