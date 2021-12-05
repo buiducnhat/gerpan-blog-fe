@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -20,6 +21,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch, useAppSelector } from '@src/hooks/redux.hook';
 import { LoginDto } from '@src/models/auth.model';
 import { fetchLogin } from '@src/redux/auth/auth.slice';
+import { useGetMe } from '@src/hooks/auth.hook';
 
 export interface ILoginModalProps {
   isOpen: boolean;
@@ -41,6 +43,7 @@ export default function LoginModal(props: ILoginModalProps) {
   const dispatch = useAppDispatch();
   const fetchingLogin = useAppSelector((state) => state.auth.fetchingLogin);
   const fetchLoginMsg = useAppSelector((state) => state.auth.fetchLoginMsg);
+  const { isAuth, user } = useGetMe();
 
   const { register, formState, handleSubmit } = useForm<LoginDto>({
     resolver: yupResolver(schema),
@@ -55,6 +58,12 @@ export default function LoginModal(props: ILoginModalProps) {
   const onSubmit: SubmitHandler<LoginDto> = (data) => {
     dispatch(fetchLogin(data));
   };
+
+  useEffect(() => {
+    if (!fetchingLogin && isAuth && !!user) {
+      setIsOpen(false);
+    }
+  }, [fetchingLogin, isAuth, setIsOpen, user]);
 
   return (
     <>

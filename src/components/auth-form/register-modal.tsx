@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -20,6 +21,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch, useAppSelector } from '@src/hooks/redux.hook';
 import { InputRegisterDto } from '@src/models/auth.model';
 import { fetchRegister } from '@src/redux/auth/auth.slice';
+import { useGetMe } from '@src/hooks/auth.hook';
 
 export interface IRegisterModalProps {
   isOpen: boolean;
@@ -44,6 +46,7 @@ export default function RegisterModal(props: IRegisterModalProps) {
   const dispatch = useAppDispatch();
   const fetchingRegister = useAppSelector((state) => state.auth.fetchingRegister);
   const fetchRegisterMsg = useAppSelector((state) => state.auth.fetchRegisterMsg);
+  const { isAuth, user } = useGetMe();
 
   const { register, formState, handleSubmit } = useForm<InputRegisterDto>({
     resolver: yupResolver(schema),
@@ -61,6 +64,12 @@ export default function RegisterModal(props: IRegisterModalProps) {
   const onSubmit: SubmitHandler<InputRegisterDto> = (data) => {
     dispatch(fetchRegister(data));
   };
+
+  useEffect(() => {
+    if (!fetchingRegister && isAuth && !!user) {
+      setIsOpen(false);
+    }
+  }, [fetchingRegister, isAuth, setIsOpen, user]);
 
   return (
     <>
