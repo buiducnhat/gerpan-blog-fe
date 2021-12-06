@@ -48,7 +48,7 @@ export default function HomePage(props: InferGetServerSidePropsType<typeof getSe
         {'Article'}
       </Heading>
       <CustomRow>
-        <CustomColumn base={12} md={8}>
+        <CustomColumn base={12} md={8} paddingEnd="5">
           <TitleHeading title={'Articles'} />
           <Box mb="5" />
 

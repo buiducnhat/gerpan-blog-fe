@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Box, Flex, BoxProps } from '@chakra-ui/react';
+import { Box, Flex, BoxProps, FlexProps } from '@chakra-ui/react';
 
 export interface ICustomColumnProps extends BoxProps {
   base?: number;
@@ -33,13 +33,13 @@ export const CustomColumn = ({ base, sm, md, lg, xl, children, ...rest }: ICusto
   };
 
   return (
-    <Box width={width} px={{ base: 0, md: 3 }} {...rest}>
+    <Box width={width} {...rest}>
       {children}
     </Box>
   );
 };
 
-export const CustomRow = (props: any) => {
+export const CustomRow = (props: FlexProps) => {
   const { children, ...rest } = props;
 
   return (

@@ -35,6 +35,7 @@ import RegisterModal from '@src/components/auth-form/register-modal';
 import { useGetMe } from '@src/hooks/auth.hook';
 import { useAppDispatch } from '@src/hooks/redux.hook';
 import { logout } from '@src/redux/auth/auth.slice';
+import { routes } from '@src/configs/routes';
 
 interface IAdminHeaderProps {
   setOpenDrawer: any;
@@ -59,7 +60,6 @@ export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
       <RegisterModal isOpen={openRegisterModal} setIsOpen={setOpenRegisterModal} />
 
       <Box
-        w="100%"
         h="12"
         pos="sticky"
         top="0"
@@ -67,7 +67,7 @@ export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
         bg={colorMode === 'light' ? 'white' : 'gray.900'}
       >
         <Container maxW="container.xl" h="100%">
-          <Flex as="nav" py="1" px={{ base: '0', md: '3' }} w="100%" align="center">
+          <Flex as="nav" py="1" w="100%" align="center">
             <Logo />
 
             <form
@@ -100,7 +100,9 @@ export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
                       <Avatar size="sm" src={user.avatar} />
                     </MenuButton>
                     <MenuList>
-                      <MenuItem icon={<UserIcon />}>{'My profile'}</MenuItem>
+                      <MenuItem icon={<UserIcon />} onClick={() => router.push(routes.users)}>
+                        {'My profile'}
+                      </MenuItem>
                       <MenuItem icon={<LogoutIcon />} onClick={() => dispatch(logout())}>
                         {'Log out'}
                       </MenuItem>
