@@ -34,7 +34,7 @@ export default function ArticleCard(props: IArticleCardProps) {
 
   return (
     <Box
-      mb={{ base: 8, md: 12 }}
+      mb={{ base: 6, md: 8 }}
       overflow="hidden"
       rounded="xl"
       bg={colorMode === 'light' ? 'white' : 'gray.700'}
