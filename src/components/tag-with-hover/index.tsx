@@ -6,7 +6,6 @@ export interface ITagWithHoverProps extends TagProps {
 }
 
 export default function TagWithHover({
-  key,
   onClick,
   hoverBackground,
   hoverColor,
@@ -15,7 +14,6 @@ export default function TagWithHover({
 }: ITagWithHoverProps) {
   return (
     <Tag
-      key={key}
       rounded="xl"
       cursor="pointer"
       _hover={{ backgroundColor: hoverBackground || 'primary.500', color: hoverColor || 'white' }}

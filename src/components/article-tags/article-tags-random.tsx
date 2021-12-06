@@ -8,7 +8,6 @@ import TagWithHover from '@src/components/tag-with-hover';
 
 export interface IArticleTagsRandomProps {
   tags: IArticleTagBasic[];
-  setFilter: Function;
 }
 
 export default function ArticleTagsRandom({ tags }: IArticleTagsRandomProps) {

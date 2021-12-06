@@ -52,7 +52,7 @@ export default function HomePage(props: InferGetServerSidePropsType<typeof getSe
           <TitleHeading title={'Articles'} />
           <Box mb="5" />
 
-          <ArticleTagsRandom tags={articleTags} setFilter={setFilter} />
+          <ArticleTagsRandom tags={articleTags} />
           <Box mb="5" />
 
           {paginatedArticles.items?.length > 0 ? (
