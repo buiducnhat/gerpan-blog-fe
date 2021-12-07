@@ -1,5 +1,5 @@
 import { LoginDto, AuthResponseDto, RegisterDto } from '@src/models/auth.model';
-import { IUserBasic } from '@src/models/user.model';
+import { IUserBasic, UpdateUserDto } from '@src/models/user.model';
 import { callApi } from '@src/utils/api.util';
 import { getToken } from '@src/utils/token.util';
 
@@ -25,5 +25,15 @@ export const apiMe = async () => {
     url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/me`,
     method: 'GET',
     token
+  });
+};
+
+export const apiUpdateMe = async (updateUserDto: UpdateUserDto) => {
+  const token = getToken();
+  return await callApi<IUserBasic>({
+    url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/users`,
+    method: 'PUT',
+    token,
+    data: updateUserDto
   });
 };

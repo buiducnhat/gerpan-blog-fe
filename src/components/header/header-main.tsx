@@ -97,7 +97,7 @@ export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
                 {isAuth && !!user ? (
                   <Menu placement="bottom-start">
                     <MenuButton>
-                      <Avatar size="sm" src={user.avatar} />
+                      <Avatar size="sm" name={user.firstName} src={user.avatar} />
                     </MenuButton>
                     <MenuList>
                       <MenuItem icon={<UserIcon />} onClick={() => router.push(routes.users)}>

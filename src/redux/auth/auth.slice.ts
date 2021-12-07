@@ -3,10 +3,10 @@ import { AxiosError } from 'axios';
 
 import { AuthResponseDto, LoginDto, RegisterDto } from '@src/models/auth.model';
 import { ErrorDto } from '@src/models/error.model';
-import { IUserBasic } from '@src/models/user.model';
+import { IUserBasic, UpdateUserDto } from '@src/models/user.model';
 import { RootState } from '@src/redux/store';
 import { clearToken, setToken } from '@src/utils/token.util';
-import { apiLogin, apiMe, apiRegister } from './auth.api';
+import { apiLogin, apiMe, apiRegister, apiUpdateMe } from './auth.api';
 
 export interface IAuthenState {
   isAuth: boolean;
@@ -74,11 +74,6 @@ export const fetchLogin = createAsyncThunk<AuthResponseDto, LoginDto>(
 
       return response.data;
     } catch (err: any) {
-      // let error: AxiosError<ErrorDto> = err;
-      // if (!error.response) {
-      //   throw err;
-      // }
-      // return rejectWithValue(error.response.data);
       return handleError(err, { rejectWithValue });
     }
   }
@@ -89,6 +84,23 @@ export const fetchRegister = createAsyncThunk<AuthResponseDto, RegisterDto>(
   async (registerDto, { rejectWithValue }) => {
     try {
       const response = await apiRegister(registerDto);
+
+      return response.data;
+    } catch (err: any) {
+      let error: AxiosError<ErrorDto> = err;
+      if (!error.response) {
+        throw err;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const fetchUpdateMe = createAsyncThunk<IUserBasic, UpdateUserDto>(
+  'auth/fetchUpdateMe',
+  async (updateUserDto, { rejectWithValue }) => {
+    try {
+      const response = await apiUpdateMe(updateUserDto);
 
       return response.data;
     } catch (err: any) {
@@ -167,6 +179,22 @@ export const authSlice = createSlice({
         state.fetchingRegister = false;
         state.fetchRegisterMsg = null;
         state.user = action.payload.user;
+      })
+
+      // Handle fetch update me
+      .addCase(fetchUpdateMe.rejected, (state, action) => {
+        const error = action.payload as ErrorDto;
+        state.fetchingUpdateMe = false;
+        state.fetchUpdateMeMsg = error?.message || action.error.message;
+      })
+      .addCase(fetchUpdateMe.pending, (state) => {
+        state.fetchingUpdateMe = true;
+        state.fetchUpdateMeMsg = null;
+      })
+      .addCase(fetchUpdateMe.fulfilled, (state, action) => {
+        state.fetchingUpdateMe = false;
+        state.fetchUpdateMeMsg = null;
+        state.user = action.payload;
       });
   }
 });
