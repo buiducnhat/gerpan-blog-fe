@@ -66,7 +66,7 @@ export default function MainHeader({ setOpenDrawer }: IAdminHeaderProps) {
         zIndex="banner"
         bg={colorMode === 'light' ? 'white' : 'gray.900'}
       >
-        <Container maxW="container.xl" h="100%">
+        <Container maxW="container.xl">
           <Flex as="nav" py="1" w="100%" align="center">
             <Logo />
 
